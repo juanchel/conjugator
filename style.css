@@ -1,0 +1,14 @@
+#main {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 60px;
+    width: 960px;
+}
+
+textarea {
+    border: 0;
+    resize: none;
+    background: #eee;
+    width: 100%;
+    height: 60px;
+}
