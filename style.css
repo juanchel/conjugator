@@ -1,3 +1,8 @@
+html {
+    font-family: "Hiragino Maru Gothic Pro", Osaka, "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    font-size: 30pt;
+}
+
 #main {
     margin-right: auto;
     margin-left: auto;
@@ -11,4 +16,6 @@ textarea {
     background: #eee;
     width: 100%;
     height: 60px;
+    font-size: 30pt;
+    font-family: "Hiragino Maru Gothic Pro", Osaka, "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
