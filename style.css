@@ -1,6 +1,5 @@
 html {
     font-family: "Hiragino Maru Gothic Pro", Osaka, "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-    font-size: 30pt;
 }
 
 #main {
@@ -10,12 +9,85 @@ html {
     width: 960px;
 }
 
+#info {
+    padding: 0px 10px;
+}
+
+#question {
+    font-size: 30pt;
+}
+
+#def {
+    font-size: 18pt;
+}
+
+#part {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#meaning {
+    font-family: 'Lucida Bright', Georgia, serif;
+    color: #707070;
+}
+
+.mod {
+    font-size: 15pt;
+    color: #ecf0f1;
+    background: #e74c3c;
+    float: left;
+    margin-right: 5px;
+    padding: 0px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.space {
+    color: white;
+    float: left;
+    width: 100px;
+}
+
+.flash{
+  -moz-animation: flash 0.5s ease-out;
+  -moz-animation-iteration-count: 1;
+  -webkit-animation: flash 0.5s ease-out;
+  -webkit-animation-iteration-count: 1;
+  -ms-animation: flash 0.5s ease-out;
+  -ms-animation-iteration-count: 1;
+
+}
+
+@-webkit-keyframes flash {
+    0% { background-color: #3498db;}   
+    100% {background-color: none;}
+}
+
+@-moz-keyframes flash {
+    0% { background-color: #3498db;}   
+    100% {background-color: none;}
+}
+
+@-ms-keyframes flash {
+    0% { background-color: #3498db;}
+    100% {background-color: none;}
+}
+
+textarea:focus {
+    outline: 0;
+}
+
 textarea {
     border: 0;
     resize: none;
-    background: #eee;
+    background-color: #ecf0f1;
     width: 100%;
     height: 60px;
-    font-size: 30pt;
+    padding: 5px 10px;
+    font-size: 25pt;
     font-family: "Hiragino Maru Gothic Pro", Osaka, "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
