@@ -1,5 +1,41 @@
 html {
     font-family: "Hiragino Maru Gothic Pro", Osaka, "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+#start-screen {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 60px;
+    width: 960px;
+    text-align: center;
+    font-size: 36pt;
+}
+
+.btn {
+    width: 250px;
+    background: #3498db;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    font-size: 20pt;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.btn ~ .btn {
+    margin-top: 10px;
+}
+
+.btn:hover {
+    color: #ecf0f1;
+    background: #2980b9;
 }
 
 #main {
@@ -7,6 +43,7 @@ html {
     margin-left: auto;
     margin-top: 60px;
     width: 960px;
+    display: none;
 }
 
 #info {
@@ -23,7 +60,7 @@ html {
 
 #part {
     font-weight: bold;
-    color: #2c3e50;
+    color: #3498db;
 }
 
 #meaning {
@@ -43,10 +80,14 @@ html {
     border-radius: 5px;
 }
 
+.mod:hover {
+    background: #e74c3c;
+}
+
 .space {
     color: white;
     float: left;
-    width: 100px;
+    width: 200px;
 }
 
 .flash{

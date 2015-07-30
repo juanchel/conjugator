@@ -1,14 +1,6 @@
 'use strict';
 
-var ICHIDAN = 1;
-
 var correct = 'たべる';
-
-function Modifier(modFunc, desc, nextMod) {
-    this.modFunc = modFunc;
-    this.desc = desc;
-    this.nextMod = nextMod; 
-}
 
 function Question(word) {
     this.word = word;
@@ -16,15 +8,25 @@ function Question(word) {
     this.modList = ['Base word'];
 }
 
+function Term(word, ruby, def) {
+    this.word = word;
+    this.ruby = ruby;
+    this.def = def;
+}
+
 Question.prototype.modify = function(modSet) {
+    // Pick and apply a random mod
     var modifier = fetchRandom(modSet);
     this.word = modifier.modFunc(this.word);
     this.modList.push.apply(this.modList, modifier.desc);
+
+    // If theres a next mod, apply it too
     if (modifier.nextMod != null) {
         this.modify(modifier.nextMod);
     }
 }
 
+// Fetches a random property from an object
 function fetchRandom(obj) {
     var tempKey, keys = [];
     for(tempKey in obj) {
@@ -35,55 +37,8 @@ function fetchRandom(obj) {
     return obj[keys[Math.floor(Math.random() * keys.length)]];
 }
 
-var ICHIVERB = {
-    'base': new Modifier(function(w) {
-        return w;
-    }, [], null),
-    'past': new Modifier(function(w) {
-        return trimLast(w) + 'た';
-    }, ['Past'], null),
-    'neg': new Modifier(function(w) {
-        return trimLast(w) + 'ない';
-    }, ['Negative'], null),
-    'neg past': new Modifier(function(w) {
-        return trimLast(w) + 'なかった';
-    }, ['Negative', 'Past'], null),
-    'pol': new Modifier(function(w) {
-        return trimLast(w) + 'ます';
-    }, ['Polite'], null),
-    'pol past': new Modifier(function(w) {
-        return trimLast(w) + 'ました';
-    }, ['Polite', 'Past'], null),
-    'pol neg': new Modifier(function(w) {
-        return trimLast(w) + 'ません';
-    }, ['Polite', 'Negative'], null),
-    'pol neg past': new Modifier(function(w) {
-        return trimLast(w) + 'ませんでした';
-    }, ['Polite', 'Negative', 'Past'], null),
-}
-
-var ICHIDAN = {
-    'base': new Modifier(function(w) {
-        return w;
-    }, [], ICHIVERB),
-    'te': new Modifier(function(w) {
-        return trimLast(w) + 'て';
-    }, ['て form'], null),
-    'poten': new Modifier(function(w) {
-        return trimLast(w) + 'られる';
-    }, ['Potential form'], ICHIVERB),
-    'pass': new Modifier(function(w) {
-        return trimLast(w) + 'られる';
-    }, ['Passive form'], ICHIVERB),
-    'cause': new Modifier(function(w) {
-        return trimLast(w) + 'させる';
-    }, ['Causitive form'], ICHIVERB),
-    'pass cause': new Modifier(function(w) {
-        return trimLast(w) + 'させられる';
-    }, ['Causitive form', 'Passive form'], ICHIVERB),
-}
-
 $(document).ready(function() {
+    // Stop the user from pressing enter in the text area
     $('textarea').bind('keypress', function(e) {
         if ((e.keyCode || e.which) == 13) {
             $(this).parents('form').submit();
@@ -104,19 +59,24 @@ function submitAnswer() {
 
 function nextQuestion() {
     var type = pickType();
-    var word = ichidan[Math.floor(Math.random() * ichidan.length)];
-    var question = new Question(word);
+    var term;
+    if (type == ICHIDAN) {  
+        var term = ichidan[Math.floor(Math.random() * ichidan.length)];
+        $('#part').text('v. ')
+    }
+    var question = new Question(term.word);
     question.modify(type);
     correct = question.word;
 
     console.log(correct);
-    $('#question-word').text(word);
+    $('#question-word').html(term.ruby);
+    $('#meaning').text(term.def);
     $('#mods .mod').remove();
-    fadeInMods(question.modList);
     $('#answer').val('');
-
+    fadeInMods(question.modList);
 }
 
+// Function for animating the mods falling in
 function fadeInMods(modList) {
     var $space = $('<div/>', {class: 'space'});
     $space.text('.')
@@ -134,12 +94,23 @@ function fadeInMods(modList) {
     }
 }
 
+// Picks a type of word to make the next question about
+// This function returns the object dictionary so it can be passed around easily
 function pickType() {
     return ICHIDAN;
 }
 
+// Returns the word without the last kana
 function trimLast(word) {
     return word.substring(0, word.length - 1);
 }
 
-var ichidan = ['たべる', 'ねる', 'しんじる', 'ねる', 'おきる', 'きる', 'でる', 'かける'];
+var ichidan = [
+    new Term('たべる', '<ruby>食<rt>た</rt></ruby>べる</span>', 'to eat'),
+    new Term('ねる', '<ruby>寝<rt>ね</rt></ruby>る', 'to sleep; to lie down'),
+    new Term('しんじる', '<ruby>信<rt>しん</rt></ruby>じる', 'to believe'),
+    new Term('おきる', '<ruby>起<rt>お</rt></ruby>きる', 'to wake up; to occur'),
+    new Term('きる', '<ruby>着<rt>き</rt></ruby>る', 'to wear'),
+    new Term('でる', '<ruby>出<rt>で</rt></ruby>る', 'to leave; to come out'),
+    new Term('かける', '<ruby>掛<rt>か</rt></ruby>ける', 'to hang'),
+]

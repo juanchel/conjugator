@@ -136,6 +136,10 @@
     // insert new letter inside text and make possible hiragana transformations
     insertNewLetter: function (mode, text, position, newLetter, callback) {
 
+      if (text.length >= 25) {
+        return;
+      }
+
       var newText = _(text).insert(newLetter, position),
         newPosition = position + 1,
         extractedRomajiText = newText.substring(0, newPosition),
