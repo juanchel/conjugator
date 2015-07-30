@@ -74,8 +74,4 @@ function ichiPotential(word) {
     return trimLast(word) + 'られる'
 }
 
-function adjPast(word) {
-    return trimLast(word) + 'かった';
-}
-
 var ichidan = ['たべる', 'ねる', 'しんじる', 'ねる', 'おきる', 'きる', 'でる', 'かける'];
