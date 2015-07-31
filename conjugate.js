@@ -1,5 +1,20 @@
 'use strict';
 
+$(document).ready(function() {
+    // Stop the user from pressing enter in the text area
+    $('textarea').bind('keypress', function(e) {
+        if ((e.keyCode || e.which) == 13) {
+            $(this).parents('form').submit();
+            return false;
+        }
+    });
+
+    $('#play').click(function() {
+        $('#start-screen').hide();
+        $('#main').show();
+    });
+});
+
 var correct = 'たべる';
 
 function Question(word) {
@@ -36,16 +51,6 @@ function fetchRandom(obj) {
     }
     return obj[keys[Math.floor(Math.random() * keys.length)]];
 }
-
-$(document).ready(function() {
-    // Stop the user from pressing enter in the text area
-    $('textarea').bind('keypress', function(e) {
-        if ((e.keyCode || e.which) == 13) {
-            $(this).parents('form').submit();
-            return false;
-        }
-    }); 
-});
 
 function submitAnswer() {
     if ($('#answer').val() == correct) {
