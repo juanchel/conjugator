@@ -43,15 +43,9 @@ Question.prototype.modify = function(modSet) {
     }
 }
 
-// Fetches a random property from an object
-function fetchRandom(obj) {
-    var tempKey, keys = [];
-    for(tempKey in obj) {
-       if(obj.hasOwnProperty(tempKey)) {
-           keys.push(tempKey);
-       }
-    }
-    return obj[keys[Math.floor(Math.random() * keys.length)]];
+// Fetches a random element of an array
+function fetchRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function submitAnswer() {

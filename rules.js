@@ -33,107 +33,108 @@
 // たべなさそう
 // たべないそう
 
-function Modifier(modFunc, desc, nextMod) {
+function Modifier(flag, modFunc, desc, nextMod) {
+    this.flag = flag;
     this.modFunc = modFunc;
     this.desc = desc;
     this.nextMod = nextMod; 
 }
 
-var NAIFORM = {
-    'kudasai': new Modifier(function(w) {
+var NAIFORM = [
+    new Modifier('kudasai', function(w) {
         return w + 'いでください';
     }, ['Negative', 'Please ~ください'], null),
-    'te': new Modifier(function(w) {
+    new Modifier('te', function(w) {
         return w + 'くて';
     }, ['Negative', 'て form'], null),
-    'ba': new Modifier(function(w) {
+    new Modifier('ba', function(w) {
         return w + 'ければ';
     }, ['Negative', 'Conditional ~ば'], null),
-    'seems': new Modifier(function(w) {
+    new Modifier('seems', function(w) {
         return w + 'さそう';
     }, ['Negative', 'Seems ~そう'], null),
-    'hearsay': new Modifier(function(w) {
+    new Modifier('hearsay', function(w) {
         return w + 'いそう';
     }, ['Negative', 'Hearsay ~そう'], null),
-}
+]
 
-var TEFORM = {
-    'base': new Modifier(function(w) {
+var TEFORM = [
+    new Modifier('base', function(w) {
         return w;
     }, ['て form'], null),
-    'kudasai': new Modifier(function(w) {
+    new Modifier('kudasai', function(w) {
         return w + 'ください';
     }, ['Please ~ください'], null),
-}
+]
 
-var ICHIVERB = {
-    'base': new Modifier(function(w) {
+var ICHIVERB = [
+    new Modifier('base', function(w) {
         return w;
     }, [], null),
-    'past': new Modifier(function(w) {
+    new Modifier('past', function(w) {
         return trimLast(w) + 'た';
     }, ['Past'], null),
-    'neg': new Modifier(function(w) {
+    new Modifier('neg', function(w) {
         return trimLast(w) + 'ない';
     }, ['Negative'], null),
-    'neg past': new Modifier(function(w) {
+    new Modifier('neg past', function(w) {
         return trimLast(w) + 'なかった';
     }, ['Negative', 'Past'], null),
-    'pol': new Modifier(function(w) {
+    new Modifier('pol', function(w) {
         return trimLast(w) + 'ます';
     }, ['Polite'], null),
-    'pol past': new Modifier(function(w) {
+    new Modifier('pol past', function(w) {
         return trimLast(w) + 'ました';
     }, ['Polite', 'Past'], null),
-    'pol neg': new Modifier(function(w) {
+    new Modifier('pol neg', function(w) {
         return trimLast(w) + 'ません';
     }, ['Polite', 'Negative'], null),
-    'pol neg past': new Modifier(function(w) {
+    new Modifier('pol neg past', function(w) {
         return trimLast(w) + 'ませんでした';
     }, ['Polite', 'Negative', 'Past'], null),
-}
+]
 
-var ICHIDAN = {
-    'base': new Modifier(function(w) {
+var ICHIDAN = [
+    new Modifier('base', function(w) {
         return w;
     }, [], ICHIVERB),
-    'te': new Modifier(function(w) {
+    new Modifier('te', function(w) {
         return trimLast(w) + 'て';
     }, [], TEFORM),
-    'neg': new Modifier(function(w) {
+    new Modifier('neg', function(w) {
         return trimLast(w) + 'な';
     }, [], NAIFORM),
-    'poten': new Modifier(function(w) {
+    new Modifier('poten', function(w) {
         return trimLast(w) + 'られる';
     }, ['Potential'], ICHIVERB),
-    'pass': new Modifier(function(w) {
+    new Modifier('pass', function(w) {
         return trimLast(w) + 'られる';
     }, ['Passive'], ICHIVERB),
-    'cause': new Modifier(function(w) {
+    new Modifier('cause', function(w) {
         return trimLast(w) + 'させる';
     }, ['Causitive'], ICHIVERB),
-    'pass cause': new Modifier(function(w) {
+    new Modifier('pass cause', function(w) {
         return trimLast(w) + 'させられる';
     }, ['Causitive', 'Passive'], ICHIVERB),
-    'te iru': new Modifier(function(w) {
+    new Modifier('te iru', function(w) {
         return trimLast(w) + 'ている';
     }, ['Enduring ~ている'], ICHIVERB),
-    'nasai': new Modifier(function(w) {
+    new Modifier('nasai', function(w) {
         return trimLast(w) + 'なさい';
     }, ['Request ~なさい'], null),
-    'hearsay': new Modifier(function(w) {
+    new Modifier('hearsay', function(w) {
         return w + 'そう';
     }, ['Hearsay ~そう'], null),
-    'seems': new Modifier(function(w) {
+    new Modifier('seems', function(w) {
         return trimLast(w) + 'そう';
     }, ['Seems like ~そう'], null),
-    'vol': new Modifier(function(w) {
+    new Modifier('vol', function(w) {
         return trimLast(w) + 'よう';
     }, ['Volitional'], null),
-    'pol vol': new Modifier(function(w) {
+    new Modifier('pol vol', function(w) {
         return trimLast(w) + 'ましょう';
     }, ['Polite', 'Volitional'], null),
-    'ba': new Modifier(function(w) {
+    new Modifier('ba', function(w) {
         return trimLast(w) + 'れば';
     }, ['Conditional ~ば'], null),
-}
+]
