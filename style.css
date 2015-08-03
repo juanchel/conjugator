@@ -10,8 +10,9 @@ html {
 }
 
 #start-screen {
-    margin-right: auto;
-    margin-left: auto;
+    position: absolute;
+    left: 50%;
+    margin-left: -480px;
     margin-top: 60px;
     width: 960px;
     text-align: center;
@@ -41,7 +42,7 @@ html {
 #main {
     margin-right: auto;
     margin-left: auto;
-    margin-top: 60px;
+    margin-top: 1000px;
     width: 960px;
     display: none;
 }
@@ -97,7 +98,6 @@ html {
   -webkit-animation-iteration-count: 1;
   -ms-animation: flash 0.5s ease-out;
   -ms-animation-iteration-count: 1;
-
 }
 
 @-webkit-keyframes flash {

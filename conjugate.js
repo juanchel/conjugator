@@ -10,12 +10,14 @@ $(document).ready(function() {
     });
 
     $('#play').click(function() {
-        $('#start-screen').hide();
+        nextQuestion();
+        $('#start-screen').animate({top: '-1000px'}, 800);
         $('#main').show();
+        $('#main').animate({'margin-top': '60px'}, 800);
     });
 });
 
-var correct = 'たべる';
+var correct = '';
 
 function Question(word) {
     this.word = word;
