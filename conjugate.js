@@ -13,7 +13,16 @@ $(document).ready(function() {
         nextQuestion();
         $('#start-screen').animate({top: '-1000px'}, 800);
         $('#main').show();
-        $('#main').animate({'margin-top': '60px'}, 800);
+        $('#main').animate({'margin-top': '20px'}, 800);
+        $('#title-text').animate({'width': '350px', 'font-size': '20pt', 'height': '40px', 'bottom': '5px', 'margin-bottom': '0px'}, 800);
+        $('#title').animate({'height': '50px'}, 800);
+    });
+
+    $('#how-to').click(function() {
+        nextQuestion();
+        $('#start-screen').animate({top: '-1000px'}, 800);
+        $('#help').show();
+        $('#help').animate({'margin-top': '20px'}, 800);
     });
 });
 

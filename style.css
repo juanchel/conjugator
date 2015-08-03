@@ -9,37 +9,73 @@ html {
     cursor: default;
 }
 
-#start-screen {
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#title {
+    position: relative;
+    font-size: 36pt;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    background: #d0d0d0;
+    height: 120px;
+    z-index: 1;
+}
+
+#title-text {
     position: absolute;
     left: 50%;
     margin-left: -480px;
-    margin-top: 60px;
+    height: 80px;
+    width: 960px;
+    bottom: 50%;
+    margin-bottom: -40px;
+    text-align: center;
+    vertical-align: text-bottom;
+}
+
+#start-screen {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    margin-left: -480px;
     width: 960px;
     text-align: center;
-    font-size: 36pt;
 }
 
 .btn {
     width: 250px;
-    background: #3498db;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 30px;
     font-size: 20pt;
     padding: 12px;
     border-radius: 5px;
+    color: #ecf0f1;
+    background: #2980b9;
+    margin-top: 60px;
 }
 
 .btn ~ .btn {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .btn:hover {
-    color: #ecf0f1;
-    background: #2980b9;
+    background: #3498db;
+    color: black;
 }
 
 #main {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1000px;
+    width: 960px;
+    display: none;
+}
+
+#help {
     margin-right: auto;
     margin-left: auto;
     margin-top: 1000px;
