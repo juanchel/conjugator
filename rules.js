@@ -40,6 +40,12 @@ function Modifier(flag, modFunc, desc, nextMod) {
     this.nextMod = nextMod; 
 }
 
+function Term(word, ruby, def) {
+    this.word = word;
+    this.ruby = ruby;
+    this.def = def;
+}
+
 var NAIFORM = [
     new Modifier('kudasai', function(w) {
         return w + 'いでください';
@@ -137,4 +143,14 @@ var ICHIDAN = [
     new Modifier('ba', function(w) {
         return trimLast(w) + 'れば';
     }, ['Conditional ~ば'], null),
+]
+
+var ichidan = [
+    new Term('たべる', '<ruby>食<rt>た</rt></ruby>べる</span>', 'to eat'),
+    new Term('ねる', '<ruby>寝<rt>ね</rt></ruby>る', 'to sleep; to lie down'),
+    new Term('しんじる', '<ruby>信<rt>しん</rt></ruby>じる', 'to believe'),
+    new Term('おきる', '<ruby>起<rt>お</rt></ruby>きる', 'to wake up; to occur'),
+    new Term('きる', '<ruby>着<rt>き</rt></ruby>る', 'to wear'),
+    new Term('でる', '<ruby>出<rt>で</rt></ruby>る', 'to leave; to come out'),
+    new Term('かける', '<ruby>掛<rt>か</rt></ruby>ける', 'to hang'),
 ]

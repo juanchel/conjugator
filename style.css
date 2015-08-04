@@ -20,7 +20,7 @@ body {
     margin-right: auto;
     margin-left: auto;
     width: 100%;
-    background: #d0d0d0;
+    background: #ecf0f1;
     height: 120px;
     z-index: 1;
 }
@@ -39,7 +39,7 @@ body {
 
 #start-screen {
     position: absolute;
-    top: 80px;
+    top: 100px;
     left: 50%;
     margin-left: -480px;
     width: 960px;
@@ -73,6 +73,7 @@ body {
     margin-top: 1000px;
     width: 960px;
     display: none;
+    position: relative;
 }
 
 #help {
@@ -93,11 +94,6 @@ body {
 
 #def {
     font-size: 18pt;
-}
-
-#part {
-    font-weight: bold;
-    color: #3498db;
 }
 
 #meaning {
@@ -127,6 +123,30 @@ body {
     width: 200px;
 }
 
+#scoreboard {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+    text-align: right;
+}
+
+#score {
+    font-family: 'Lucida Bright', Georgia, serif;
+    font-size: 12pt;
+}
+
+.lb-text {
+    color: #3498db;
+}
+
+#mult {
+    font-size: 16pt;
+}
+
 .flash{
   -moz-animation: flash 0.5s ease-out;
   -moz-animation-iteration-count: 1;
@@ -149,6 +169,16 @@ body {
 @-ms-keyframes flash {
     0% { background-color: #3498db;}
     100% {background-color: none;}
+}
+
+#time-bar {
+    padding: 3px;
+    border-radius: 8px;
+    background-image: linear-gradient(left, #3498db 50%, #ecf0f1 50%);
+    background-image: -o-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
+    background-image: -moz-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
+    background-image: -webkit-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
+    background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);   
 }
 
 textarea:focus {
