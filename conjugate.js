@@ -2,6 +2,7 @@
 
 var score = 0;
 var time = 0;
+var mult = 1;
 var timemax = 15;
 var correct = '';
 
@@ -55,7 +56,11 @@ function submitAnswer() {
         setTimeout(function(){
             $("#answer").removeClass('flash');
         }, 300);
+        mult += 1;
+        score += time;
         setTimeBar(100);
+        $('#score').text(score);
+        $('#mult').text(mult);
         nextQuestion();
     }
 }
