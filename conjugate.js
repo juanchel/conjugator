@@ -3,7 +3,7 @@
 var score = 0;
 var time = 0;
 var mult = 1;
-var timemax = 15;
+var timeMax = 15;
 var correct = '';
 
 $(document).ready(function() {
@@ -56,8 +56,14 @@ function submitAnswer() {
         setTimeout(function(){
             $("#answer").removeClass('flash');
         }, 300);
-        mult += 1;
-        score += time;
+        if (time > 0) {
+            score += Math.ceil(time * mult / timeMax);
+            mult += 1;
+            timeMax *= 0.95;
+        } else {
+            mult = 1;
+            timeMax = 15;
+        }
         setTimeBar(100);
         $('#score').text(score);
         $('#mult').text(mult);
@@ -75,7 +81,7 @@ function setTimeBar(percent) {
 
 // Generate a new question
 function nextQuestion() {
-    time = 100 * timemax;
+    time = 100 * timeMax;
 
     var type = pickType();
     var term;
@@ -127,7 +133,7 @@ function trimLast(word) {
 // Timer function called 100 times per second
 function interval() {
     time--;
-    setTimeBar(time/timemax);
+    setTimeBar(time/timeMax);
 }
 
 var t = setInterval(interval, 10);
