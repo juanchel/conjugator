@@ -147,7 +147,7 @@ body {
     font-size: 16pt;
 }
 
-.flash{
+.flash {
   -moz-animation: flash 0.5s ease-out;
   -moz-animation-iteration-count: 1;
   -webkit-animation: flash 0.5s ease-out;
@@ -168,6 +168,30 @@ body {
 
 @-ms-keyframes flash {
     0% { background-color: #3498db;}
+    100% {background-color: none;}
+}
+
+.flash-red {
+  -moz-animation: flashr 0.5s ease-out;
+  -moz-animation-iteration-count: 1;
+  -webkit-animation: flashr 0.5s ease-out;
+  -webkit-animation-iteration-count: 1;
+  -ms-animation: flashr 0.5s ease-out;
+  -ms-animation-iteration-count: 1;
+}
+
+@-webkit-keyframes flashr {
+    0% { background-color: #e74c3c;}   
+    100% {background-color: none;}
+}
+
+@-moz-keyframes flashr {
+    0% { background-color: #e74c3c;}   
+    100% {background-color: none;}
+}
+
+@-ms-keyframes flashr {
+    0% { background-color: #e74c3c;}
     100% {background-color: none;}
 }
 

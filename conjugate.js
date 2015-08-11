@@ -5,12 +5,14 @@ var time = 0;
 var mult = 1;
 var timeMax = 15;
 var correct = '';
+var skipped = false;
 
 $(document).ready(function() {
     // Stop the user from pressing enter in the text area
     $('textarea').bind('keypress', function(e) {
         if ((e.keyCode || e.which) == 13) {
             $(this).parents('form').submit();
+            skipQuestion();
             return false;
         }
     });
@@ -49,9 +51,27 @@ function fetchRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Skips a question and shows the correct answer
+function skipQuestion(arr) {
+    if (skipped) {
+        nextQuestion();
+    } else {
+        time = -1;
+        mult = 1;
+        $('#mult').text(mult);
+        $('#answer').addClass('flash-red');
+        $('#time-bar').css('background', '#e74c3c');
+        $('#answer').val(correct);
+        setTimeout(function(){
+            $('#answer').removeClass('flash-red');
+        }, 300);
+    }
+    skipped = !skipped;
+}
+
 // Check if the answer is correct every time a character is typed
 function submitAnswer() {
-    if ($('#answer').val() == correct) {
+    if ($('#answer').val() == correct && !skipped) {
         $('#answer').addClass('flash');
         setTimeout(function(){
             $("#answer").removeClass('flash');
@@ -64,13 +84,14 @@ function submitAnswer() {
             mult = 1;
             timeMax = 15;
         }
-        setTimeBar(100);
         $('#score').text(score);
         $('#mult').text(mult);
+        setTimeBar(100);
         nextQuestion();
     }
 }
 
+// Sets time remaining bar to the percentage passed in
 function setTimeBar(percent) {
     $('#time-bar').css('background-image', 'linear-gradient(left, #3498db ' + percent + '%, #ecf0f1 ' + percent + '%)');
     $('#time-bar').css('background-image', '-o-linear-gradient(left, #3498db ' + percent + '%, #ecf0f1 ' + percent + '%)');
@@ -132,8 +153,11 @@ function trimLast(word) {
 
 // Timer function called 100 times per second
 function interval() {
-    time--;
-    setTimeBar(time/timeMax);
+    if (!skipped) {
+        time--;
+        setTimeBar(time/timeMax);
+    }
+
 }
 
 var t = setInterval(interval, 10);
