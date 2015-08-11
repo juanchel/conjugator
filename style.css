@@ -67,7 +67,7 @@ body {
     color: black;
 }
 
-#main {
+#main, #option-menu {
     margin-right: auto;
     margin-left: auto;
     margin-top: 1000px;
