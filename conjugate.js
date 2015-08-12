@@ -8,6 +8,8 @@ var correct = '';
 var skipped = false;
 
 $(document).ready(function() {
+    $(".card").flip();
+
     // Stop the user from pressing enter in the text area
     $('textarea').bind('keypress', function(e) {
         if ((e.keyCode || e.which) == 13) {
@@ -33,6 +35,10 @@ $(document).ready(function() {
         $('#option-menu').animate({'margin-top': '20px'}, 800);
         $('#title-text').animate({'width': '350px', 'font-size': '20pt', 'height': '40px', 'bottom': '5px', 'margin-bottom': '0px'}, 800);
         $('#title').animate({'height': '50px'}, 800);
+    });
+
+    $('.card').click(function() {
+        $(this).flip();
     });
 });
 

@@ -205,6 +205,19 @@ body {
     background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);   
 }
 
+.card {
+    width: 300px;
+    height: 300px;
+}
+
+.front {
+    background: red;
+}
+
+.back {
+    background: green;
+}
+
 textarea:focus {
     outline: 0;
 }
