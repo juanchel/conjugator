@@ -197,7 +197,7 @@ body {
 
 #time-bar {
     padding: 3px;
-    border-radius: 8px;
+    border-radius: 6px;
     background-image: linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -o-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -moz-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
@@ -205,17 +205,31 @@ body {
     background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);   
 }
 
+.card-outer {
+    width: 190px;
+    height: 70px;
+    box-sizing: border-box;
+    border: 5px solid green;
+    border-radius: 10px;
+}
+
 .card {
-    width: 300px;
-    height: 300px;
+    width: 180px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
 }
 
 .front {
-    background: red;
+    border-radius: 5px;
+    background: #3498db;
+    padding: 15px 0px;
 }
 
 .back {
-    background: green;
+    border-radius: 5px;
+    background: #ecf0f1;
+    padding: 15px 0px;
 }
 
 textarea:focus {

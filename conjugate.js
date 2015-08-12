@@ -171,7 +171,6 @@ function interval() {
         time--;
         setTimeBar(time/timeMax);
     }
-
 }
 
 var t = setInterval(interval, 10);
