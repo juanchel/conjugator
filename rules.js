@@ -33,6 +33,8 @@
 // たべなさそう
 // たべないそう
 
+// base kudasai te ba seems hearsay past neg pol poten pass cause iru nasai seems vol
+
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
     this.modFunc = modFunc;
