@@ -33,14 +33,14 @@
 // たべなさそう
 // たべないそう
 
-// base kudasai te ba seems hearsay past neg pol poten pass cause iru nasai seems vol
+// base te ba seems hearsay kudasai past neg past pol cause pass poten iru vol polvol negba negte neghearsay negseems neghearsay
 
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
     this.modFunc = modFunc;
     this.desc = desc;
     this.nextMod = nextMod; 
-}
+} 
 
 function Term(word, ruby, def) {
     this.word = word;
@@ -52,16 +52,16 @@ var NAIFORM = [
     new Modifier('kudasai', function(w) {
         return w + 'いでください';
     }, ['Negative', 'Please ~ください'], null),
-    new Modifier('te', function(w) {
+    new Modifier('negte', function(w) {
         return w + 'くて';
     }, ['Negative', 'て form'], null),
-    new Modifier('ba', function(w) {
+    new Modifier('negba', function(w) {
         return w + 'ければ';
     }, ['Negative', 'Conditional ~ば'], null),
-    new Modifier('seems', function(w) {
+    new Modifier('negseems', function(w) {
         return w + 'さそう';
     }, ['Negative', 'Seems ~そう'], null),
-    new Modifier('hearsay', function(w) {
+    new Modifier('neghearsay', function(w) {
         return w + 'いそう';
     }, ['Negative', 'Hearsay ~そう'], null),
 ]
@@ -139,7 +139,7 @@ var ICHIDAN = [
     new Modifier('vol', function(w) {
         return trimLast(w) + 'よう';
     }, ['Volitional'], null),
-    new Modifier('pol vol', function(w) {
+    new Modifier('polvol', function(w) {
         return trimLast(w) + 'ましょう';
     }, ['Polite', 'Volitional'], null),
     new Modifier('ba', function(w) {
