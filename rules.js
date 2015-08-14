@@ -34,6 +34,7 @@
 // たべないそう
 
 // base te ba seems hearsay kudasai past neg past pol cause pass poten iru vol polvol negba negte neghearsay negseems neghearsay
+// 
 
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
@@ -100,6 +101,9 @@ var ICHIVERB = [
     new Modifier('pol neg past', function(w) {
         return trimLast(w) + 'ませんでした';
     }, ['Polite', 'Negative', 'Past'], null),
+    new Modifier('negpolvol', function(w) {
+        return trimLast(w) + 'ますまい';
+    }, ['Polite', 'Volitional', 'Negative'], null),
 ]
 
 var ICHIDAN = [
@@ -136,8 +140,11 @@ var ICHIDAN = [
     new Modifier('seems', function(w) {
         return trimLast(w) + 'そう';
     }, ['Seems like ~そう'], null),
+    new Modifier('negvol', function(w) {
+        return w + 'まい';
+    }, ['Volitional', 'Negative'], null),
     new Modifier('vol', function(w) {
-        return trimLast(w) + 'よう';
+        return trimLast(w) + 'ましょう';
     }, ['Volitional'], null),
     new Modifier('polvol', function(w) {
         return trimLast(w) + 'ましょう';
