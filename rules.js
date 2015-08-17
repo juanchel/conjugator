@@ -34,7 +34,6 @@
 // たべないそう
 
 // base te ba seems hearsay kudasai past neg past pol cause pass poten iru vol polvol negba negte neghearsay negseems neghearsay
-// 
 
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
