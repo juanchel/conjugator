@@ -232,7 +232,6 @@ input[type=checkbox] {
     height: 40px;
     background: #ecf0f1;
     margin: 20px 60px;
-
     border-radius: 50px;
     position: relative;
 }
@@ -262,7 +261,6 @@ input[type=checkbox] {
     width: 52px;
     height: 22px;
     border-radius: 50px;
-
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
