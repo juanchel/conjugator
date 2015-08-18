@@ -229,13 +229,13 @@ input[type=checkbox] {
 
 .option-label {
     float: left;
+    font-size: 16pt;
 }
 
 .check-box {
     width: 120px;
     height: 40px;
     background: #ecf0f1;
-    margin: 20px 60px;
     border-radius: 50px;
     position: relative;
     float: left;
@@ -248,7 +248,7 @@ input[type=checkbox] {
     left: 13px;
     height: 2px;
     color: #2980b9;
-    font-size: 16px;
+    font-size: 12pt;
 }
 
 .check-box:after {
@@ -258,7 +258,7 @@ input[type=checkbox] {
     left: 84px;
     height: 2px;
     color: #e74c3c;
-    font-size: 16px;
+    font-size: 12pt;
 }
 
 .check-box label {
