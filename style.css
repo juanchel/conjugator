@@ -235,13 +235,12 @@ input[type=checkbox] {
 
     border-radius: 50px;
     position: relative;
-    font-size: sans-serif;
 }
 
 .check-box:before {
     content: 'On';
     position: absolute;
-    top: 12px;
+    top: 8px;
     left: 13px;
     height: 2px;
     color: #2980b9;
@@ -251,7 +250,7 @@ input[type=checkbox] {
 .check-box:after {
     content: 'Off';
     position: absolute;
-    top: 12px;
+    top: 8px;
     left: 84px;
     height: 2px;
     color: #e74c3c;
