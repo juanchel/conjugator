@@ -243,6 +243,7 @@ input[type=checkbox] {
     border-radius: 50px;
     position: relative;
     float: left;
+    margin-right: 80px;
 }
 
 .check-box:before {
