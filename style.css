@@ -288,3 +288,7 @@ input[type=checkbox] {
     left: 60px;
     background: #3498db;
 }
+
+.menu-sec {
+    clear: both
+}
