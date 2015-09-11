@@ -34,6 +34,9 @@ $(document).ready(function() {
         $('#title-text').animate({'width': '350px', 'font-size': '20pt', 'height': '40px', 'bottom': '5px', 'margin-bottom': '0px'}, 800);
         $('#title').animate({'height': '50px'}, 800);
     });
+
+    $('#basic-opt').append(genLabel('Desc'));
+    $('#basic-opt').append(genOption('verb'));
 });
 
 function Question(word) {
@@ -165,6 +168,20 @@ function interval() {
         time--;
         setTimeBar(time/timeMax);
     }
+}
+
+// Adds an label to the options menu
+function genLabel(desc) {
+    var $label = $('<div/>', {class: 'option-label'});
+    $label.text(desc);
+    return $label;
+}
+
+// Adds an option to the options menu
+function genOption(desc) {
+    var $option = $('<div/>', {class: 'check-box'});
+    $option.html('<input type="checkbox" value="0" id="' + desc + '" name="" /><label for="' + desc + '"></label>');
+    return $option;
 }
 
 var t = setInterval(interval, 10);
