@@ -180,7 +180,10 @@ function genLabel(desc) {
 // Adds an option to the options menu
 function genOption(desc) {
     var $option = $('<div/>', {class: 'check-box'});
-    $option.html('<input type="checkbox" value="0" id="' + desc + '" name="" /><label for="' + desc + '"></label>');
+    var $input = $('<input/>', {type: 'checkbox', value: '0', id: desc, name: ''});
+    var $label = $('<label/>', {for: desc});
+    $option.append($input);
+    $option.append($label);
     return $option;
 }
 
