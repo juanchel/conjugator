@@ -35,8 +35,7 @@ $(document).ready(function() {
         $('#title').animate({'height': '50px'}, 800);
     });
 
-    $('#basic-opt').append(genLabel('Desc'));
-    $('#basic-opt').append(genOption('verb'));
+    genFullOption($('#basic-opt'), 'Desc', 'verb');
 });
 
 function Question(word) {
@@ -174,6 +173,7 @@ function interval() {
 function genLabel(desc) {
     var $label = $('<div/>', {class: 'option-label'});
     $label.text(desc);
+    $label.
     return $label;
 }
 
@@ -185,6 +185,11 @@ function genOption(desc) {
     $option.append($input);
     $option.append($label);
     return $option;
+}
+
+function genFullOption(target, label, opt) {
+    target.append(genLabel(label));
+    target.append(genOpt(opt));
 }
 
 var t = setInterval(interval, 10);
