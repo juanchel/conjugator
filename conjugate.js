@@ -35,7 +35,7 @@ $(document).ready(function() {
         $('#title').animate({'height': '50px'}, 800);
     });
 
-    genFullOption($('#basic-opt'), 'Desc', 'verb');
+    genFullOption($('#basic-opt'), 'Past Tense', 'past');
 });
 
 function Question(word) {
@@ -173,7 +173,6 @@ function interval() {
 function genLabel(desc) {
     var $label = $('<div/>', {class: 'option-label'});
     $label.text(desc);
-    $label.
     return $label;
 }
 
@@ -189,7 +188,7 @@ function genOption(desc) {
 
 function genFullOption(target, label, opt) {
     target.append(genLabel(label));
-    target.append(genOpt(opt));
+    target.append(genOption(opt));
 }
 
 var t = setInterval(interval, 10);
