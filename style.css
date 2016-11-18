@@ -157,12 +157,12 @@ body {
 }
 
 @-webkit-keyframes flash {
-    0% { background-color: #3498db;}   
+    0% { background-color: #3498db;}
     100% {background-color: none;}
 }
 
 @-moz-keyframes flash {
-    0% { background-color: #3498db;}   
+    0% { background-color: #3498db;}
     100% {background-color: none;}
 }
 
@@ -181,12 +181,12 @@ body {
 }
 
 @-webkit-keyframes flashr {
-    0% { background-color: #e74c3c;}   
+    0% { background-color: #e74c3c;}
     100% {background-color: none;}
 }
 
 @-moz-keyframes flashr {
-    0% { background-color: #e74c3c;}   
+    0% { background-color: #e74c3c;}
     100% {background-color: none;}
 }
 
@@ -202,7 +202,7 @@ body {
     background-image: -o-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -moz-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -webkit-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
-    background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);   
+    background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
 }
 
 textarea:focus {
@@ -226,6 +226,36 @@ textarea {
 input[type=checkbox] {
     visibility: hidden;
 }
+
+/**/
+#well{
+    margin-top:32px;
+}
+
+.wellitem {
+  margin: 4px 0;
+  color: #ecf0f1;
+  font-size: 15pt;
+  padding: 0px 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.correct {
+  background: #8abc83;
+}
+
+.skipped {
+    background: #e74c3c;
+}
+
+span.striken {
+    text-decoration: line-through;
+    margin-left: 32px;
+    font-size: 12pt;
+}
+/**/
 
 .option-label {
     float: left;

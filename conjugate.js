@@ -72,6 +72,7 @@ function skipQuestion(arr) {
         $('#mult').text(mult);
         $('#answer').addClass('flash-red');
         $('#time-bar').css('background', '#e74c3c');
+        addWell($('#answer').val()||'', correct)
         $('#answer').val(correct);
         setTimeout(function(){
             $('#answer').removeClass('flash-red');
@@ -85,7 +86,7 @@ function submitAnswer() {
     if ($('#answer').val() == correct && !skipped) {
         $('#answer').addClass('flash');
         setTimeout(function(){
-            $("#answer").removeClass('flash');
+            $('#answer').removeClass('flash');
         }, 300);
         if (time > 0) {
             score += Math.ceil(time * mult / timeMax);
@@ -95,6 +96,7 @@ function submitAnswer() {
             mult = 1;
             timeMax = _timeMax;
         }
+        addWell($('#answer').val(), correct)
         $('#score').text(score);
         $('#mult').text(mult);
         setTimeBar(100);
@@ -193,3 +195,20 @@ function genFullOption(target, label, opt) {
 }
 
 var t = setInterval(interval, 10);
+
+function addWell(actual, expected)
+{
+  var w = $('<div/>').addClass('wellitem');
+  if(actual.localeCompare(expected) == 0)
+  {
+    w.addClass('correct').text(actual)
+  }
+  else
+  {
+    w.addClass('skipped')
+    .append(' ' + expected)
+    .append($('<span/>').addClass('striken').text(actual));
+  }
+
+  $('#well').prepend(w);
+}
