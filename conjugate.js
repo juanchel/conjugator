@@ -3,7 +3,8 @@
 var score = 0;
 var time = 0;
 var mult = 1;
-var timeMax = 15;
+var _timeMax = 150;
+var timeMax = _timeMax;
 var correct = '';
 var skipped = false;
 
@@ -92,7 +93,7 @@ function submitAnswer() {
             timeMax *= 0.95;
         } else {
             mult = 1;
-            timeMax = 15;
+            timeMax = _timeMax;
         }
         $('#score').text(score);
         $('#mult').text(mult);
@@ -116,7 +117,7 @@ function nextQuestion() {
 
     var type = pickType();
     var term;
-    if (type == ICHIDAN) {  
+    if (type == ICHIDAN) {
         var term = ichidan[Math.floor(Math.random() * ichidan.length)];
         $('#part').text('v. ')
     }
