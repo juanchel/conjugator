@@ -1,5 +1,3 @@
-'use strict';
-
 var split_reverse = function(str)
 {
   return str.split('').reverse();

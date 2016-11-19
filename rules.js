@@ -1,40 +1,3 @@
-// FIRST
-// たべる -> VERB
-// たべられる -> VERB
-// たべさせる -> VERB
-// たべさせられる -> VERB
-// たべられる -> VERB
-
-// たべて　-> TEFORM
-// たべなさい
-// たべそう
-// たべるそう
-// たべよう
-// たべましょう
-// たべな -> VERBNAI
-
-// VERB
-// たべる
-// たべた
-// たべない
-// たべなかった
-// たべます
-// たべました
-// たべません
-// たべませんでした
-
-// TEFORM
-// たべてください
-
-// VERBNAI
-// たべないでください
-// たべなくて
-// たべなければ
-// たべなさそう
-// たべないそう
-
-// base te ba seems hearsay kudasai past neg past pol cause pass poten iru vol polvol negba negte neghearsay negseems neghearsay
-
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
     this.modFunc = modFunc;
@@ -47,6 +10,63 @@ function Term(word, kanji, def) {
     this.ruby = addFurigana(kanji || word, word);
     this.def = def;
 }
+
+var KANA_FAM = {
+  V: ['あ','え','い','お','う'],
+
+  K: ['か','け','き','こ','く'],
+  G: ['が','げ','ぎ','ご','ぐ'],
+
+  H: ['は','へ','ひ','ほ','ふ'],
+  B: ['ば','べ','び','ぼ','ぶ'],
+  P: ['ぱ','ぺ','ぴ','ぽ','ぷ'],
+
+  S: ['さ','せ','し','そ','す'],
+  Z: ['ざ','ぜ','じ','ぞ','ず'],
+
+  T: ['た','て','ち','と','つ'],
+  D: ['だ','で','ぢ','ど', null],
+
+  N: ['な','ね','に','の','ぬ'],
+  M: ['ま','め','み','も','む'],
+  R: ['ら','れ','り','ろ','る'],
+  Y: ['や', null, null, 'よ', 'ゆ'],
+
+};
+
+var Mogrify = {
+  _mog: function(kana, index)
+  {
+    for(base in KANA_FAM)
+    {
+      if(KANA_FAM[base].indexOf(kana) != -1)
+      {
+        return KANA_FAM[base][index]
+      }
+    }
+    console.error("No mogrification for kana: " + kana);
+  },
+  A: function(kana)
+  {
+      return Mogrify._mog(kana, 0);
+  },
+  E: function(kana)
+  {
+      return Mogrify._mog(kana, 1);
+  },
+  I: function(kana)
+  {
+      return Mogrify._mog(kana, 2);
+  },
+  O: function(kana)
+  {
+      return Mogrify._mog(kana, 3);
+  },
+  U: function(kana)
+  {
+      return Mogrify._mog(kana, 4);
+  },
+};
 
 var NAIFORM = [
     new Modifier('kudasai', function(w) {
@@ -123,10 +143,10 @@ var ICHIDAN = [
     }, ['Passive'], ICHIVERB),
     new Modifier('cause', function(w) {
         return trimLast(w) + 'させる';
-    }, ['Causitive'], ICHIVERB),
+    }, ['Causative'], ICHIVERB),
     new Modifier('pass cause', function(w) {
         return trimLast(w) + 'させられる';
-    }, ['Causitive', 'Passive'], ICHIVERB),
+    }, ['Causative', 'Passive'], ICHIVERB),
     new Modifier('te iru', function(w) {
         return trimLast(w) + 'ている';
     }, ['Enduring ~ている'], ICHIVERB),
@@ -151,144 +171,106 @@ var ICHIDAN = [
     new Modifier('ba', function(w) {
         return trimLast(w) + 'れば';
     }, ['Conditional ~ば'], null),
-]
+];
 
-var ichidan = [
-    new Term('おきる', '起きる', 'to wake up; to occur'),
-    new Term('でる', '出る', 'to leave; to come out'),
-    new Term('くわえる', '加える', 'to add to, include'),
-    new Term('みとめる', '認める', 'to admit, recognize'),
-    new Term('こたえる', '答える', 'to answer'),
-    new Term('さける', '避ける', 'to avoid, dodge'),
-    new Term('きんじる', '禁じる', 'to ban, prohibit'),
-    new Term('あびる', '浴びる', 'to bathe, take a shower'),
-    new Term('いる', '居る', 'to be'),
-    new Term('できる', '来る', 'to be able'),
-    new Term('いきる', '生きる', 'to be alive'),
-    new Term('きこえる', '聞こえる', 'to be audible, able to hear'),
-    new Term('うまれる', '生まれる', 'to be born'),
-    new Term('おれる', '折れる', 'to be broken, snap'),
-    new Term('こげる', '焦げる', 'to be burned, charred'),
-    new Term('まける', '負ける', 'to be defeated, lose a game'),
-    new Term('たりる', '足りる', 'to be enough, suffient'),
-    new Term('おくれる', '遅れる', 'to be late, lag behind'),
-    new Term('なまける', '怠ける', 'to be lazy'),
-    new Term('もてる', null, 'to be popular'),
-    new Term('みえる', '見える', 'to be visible, able to see'),
-    new Term('ぬれる', '濡れる', 'to become wet'),
-    new Term('はじめる', '始める', 'to begin'),
-    new Term('しんじる', '信じる', 'to believe, trust'),
-    new Term('まげる', '曲げる', 'to bend, twist'),
-    new Term('かりる', '借りる', 'to borrow, rent'),
-    new Term('こわれる', '壊れる', 'to break'),
-    new Term('きれる', '切れる', 'to break, cut off, expire'),
-    new Term('そだてる', '育てる', 'to bring up a child, train'),
-    new Term('たてる', '立てる', 'to build'),
-    new Term('やける', '焼ける', 'to burn'),
-    new Term('かえる', '変える', 'to change'),
-    new Term('しらべる', '調べる', 'to check, investigate'),
-    new Term('はれる', '晴れる', 'to clear up, tidy up'),
-    new Term('くずれる', '崩れる', 'to collapse, cave in'),
-    new Term('とれる', '取れる', 'to come off'),
-    new Term('はずれる', '外れる', 'to come off, go wide'),
-    new Term('ほどける', '解ける', 'to come untied, loose'),
-    new Term('なぐさめる', '慰める', 'to comfort, console'),
-    new Term('いいつける', '言いつける', 'to command'),
-    new Term('くらべる', '比べる', 'to compare'),
-    new Term('つづける', '続ける', 'to continue, proceed'),
-    new Term('かぞえる', '数える', 'to count'),
-    new Term('きめる', '決める', 'to decide, choose'),
-    new Term('さだめる', '定める', 'to decide, establish'),
-    new Term('たべる', '食べる', 'to eat'),
-    new Term('すぐれる', '優れる', 'to excel, be excellent, be superior'),
-    new Term('とりかえる', '取り換える', 'to exchange'),
-    new Term('たおれる', '倒れる', 'to fall down, collapse'),
-    new Term('ほれる', '惚れる', 'to fall in love'),
-    new Term('おちる', '落ちる', 'to fall, fail, go down'),
-    new Term('おそれる', '恐れる', 'to fear, be in awe of'),
-    new Term('かんじる', '感じる', 'to feel, sense'),
-    new Term('みつける', '見つける', 'to find'),
-    new Term('かたづける', '付ける', 'to finish, tidy up'),
-    new Term('ながれる', '流れる', 'to flow, be called off'),
-    new Term('わすれる', '忘れる', 'to forget'),
-    new Term('あつめる', '集める', 'to gather, collect'),
-    new Term('える', '得る', 'to get'),
-    new Term('きかえる', '換える', 'to get changed'),
-    new Term('こえる', null, 'to get fat, grow fertile / cross over, exceed'),
-    new Term('おりる', '降りる', 'to get off, go down'),
-    new Term('つかれる', '疲れる', 'to get tired'),
-    new Term('おきる', '起きる', 'to get up'),
-    new Term('なれる', '慣れる', 'to get used to, become familiar with'),
-    new Term('あげる', null, 'to give'),
-    new Term('くれる', '呉れる', 'to give (the giver is not the speaker)'),
-    new Term('かじる', '齧る', 'to gnaw, nibble'),
-    new Term('でかける', '出かける', 'to go out, leave home'),
-    new Term('むかえる', '迎える', 'to greet, meet, welcome'),
-    new Term('くれる', '暮れる', 'to grow dark (sunset)'),
-    new Term('かける', null, 'to hang, sit, telephone, risk'),
-    new Term('たすける', '助ける', 'to help'),
-    new Term('さまたげる', '妨げる', 'to hinder, obstruct'),
-    new Term('ぶつける', null, 'to hit against, throw at'),
-    new Term('かかえる', '抱える', 'to hold (in your arms), have'),
-    new Term('ふえる', '増える', 'to increase'),
-    new Term('くるしませる', '苦しませる', 'to inflict pain, torment'),
-    new Term('ふせる', '伏せる', 'to lay face down'),
-    new Term('つれる', '連れる', 'to lead'),
-    new Term('もれる', '漏れる', 'to leak, escape'),
-    new Term('なめる', '舐める', 'to lick'),
-    new Term('ならべる', '並べる', 'to line up, list, arrange in order'),
-    new Term('みる', '見る', 'to look'),
-    new Term('さげる', '下げる', 'to lower, hang'),
-    new Term('まちがえる', '違える', 'to make a mistake'),
-    new Term('こしらえる', '拵える', 'to make manufacture'),
-    new Term('まぜる', '混ぜる', 'to mix'),
-    new Term('しらせる', '知らせる', 'to notify'),
-    new Term('あける', '開ける', 'to open'),
-    new Term('あわてる', '慌てる', 'to panic, be flustered'),
-    new Term('わかれる', '別れる', 'to part, separate from, be divided, divorced'),
-    new Term('へる', '減る', 'to pass through, go by'),
-    new Term('すぎる', '過ぎる', 'to pass, exceed'),
-    new Term('かさねる', '重ねる', 'to pile up, repeat'),
-    new Term('くわだてる', '企てる', 'to plan, scheme'),
-    new Term('ほめる', '褒める', 'to praise'),
-    new Term('もうける', '儲ける', 'to profit, make money'),
-    new Term('いれる', '入れる', 'to put in, let in'),
-    new Term('のせる', null, 'to put on top off, put on board'),
-    new Term('かかげる', '掲げる', 'to raise (a flag), hold up'),
-    new Term('おぼえる', '覚える', 'to remember, learn'),
-    new Term('もとめる', '求める', 'to request, seek, buy, ask'),
-    new Term('にる', '似る', 'to resemble, be similar to'),
-    new Term('おさえる', '抑える', 'to restrain, control'),
-    new Term('にげる', '逃げる', 'to run away, escape'),
-    new Term('たくわえる', '蓄える', 'to save money, put aside, store'),
-    new Term('ためる', null, 'to save, store, accumulate'),
-    new Term('みせる', '見せる', 'to show'),
-    new Term('しめる', '閉める', 'to shut'),
-    new Term('こしかける', '掛ける', 'to sit in (western style)'),
-    new Term('ねる', '寝る', 'to sleep, go to bed'),
-    new Term('こぼれる', null, 'to spill, overflow'),
-    new Term('ひろめる', '広める', 'to spread, make popular'),
-    new Term('かまえる', '構える', 'to stand prepared'),
-    new Term('とめる', '止める', 'to stop, fasten'),
-    new Term('やめる', '止める', 'to stop, give up, resign'),
-    new Term('つよめる', '強める', 'to strengthen'),
-    new Term('かためる', '固める', 'to strengthen, harden'),
-    new Term('ささえる', '支える', 'to support'),
-    new Term('ひきうける', '引き受ける', 'to take charge of'),
-    new Term('教える', null, 'to teach, show'),
-    new Term('いましめる', '戒める', 'to tell off, caution'),
-    new Term('かんがえる', '考える', 'to think'),
-    new Term('なげる', '投げる', 'to throw away'),
-    new Term('すてる', '捨てる', 'to throw away'),
-    new Term('そだてる', '育てる', 'to rear, to bring up'),
-    new Term('いじめる', '虐める', 'to torment, bully'),
-    new Term('ふれる', '触れる', 'to touch'),
-    new Term('のりかえる', '乗り換える', 'to transit'),
-    new Term('つける', '点ける', 'to turn on, light'),
-    new Term('きえる', '消える', 'to vanish, go out, be extinguished'),
-    new Term('ながめる', '眺める', 'to watch, view'),
-    new Term('きる', '着る', 'to wear'),
-    new Term('かれる', '枯れる', 'to wither'),
-    new Term('つとめる', '勤める', 'to work for'),
-    new Term('きずつける', '傷つける', 'to wound, damage, harm'),
+var GODAN = [
+  new Modifier('base', function(w) {
+      return w;
+  }, [], null),
+  new Modifier('te', function(w) {
+      var e, l = snipLast(w);
+      switch(l)
+      {
+        case 'す':
+          e = 'して';
+          break;
+        case 'く':
+          e = 'いて';
+          break;
+        case 'ぐ':
+          e = 'いで';
+          break;
+        case 'ぬ':
+        case 'ぶ':
+        case 'む':
+          e = 'んで';
+          break;
+        case 'る':
+        case 'つ':
+        case 'う':
+          e = 'ぅて';
+          break;
+        default:
+          console.error('No te conj for: ' + l)
+      }
+      return trimLast(w) + e;
+  }, ['て-Form'], null),
+
+  new Modifier('past', function(w) {
+      var e, l = snipLast(w);
+      switch(l)
+      {
+        case 'す':
+          e = 'した';
+          break;
+          console.info(l);
+        case 'く':
+          e = 'いた';
+          break;
+        case 'ぐ':
+          e = 'いだ';
+          break;
+        case 'ぬ':
+        case 'ぶ':
+        case 'む':
+          e = 'んだ';
+          break;
+        case 'る':
+        case 'つ':
+        case 'う':
+          e = 'ぅた';
+          break;
+        default:
+          console.error('No past conj for: ' + l)
+      }
+      return trimLast(w) + e;
+  }, ['Past'], null),
+  new Modifier('neg', function(w) {
+      var l = snipLast(w);
+      return trimLast(w) + Mogrify.A(l) + 'ない';
+  }, ['Negative'], null),
+  new Modifier('polneg', function(w) {
+      var l = snipLast(w);
+      return trimLast(w) + Mogrify.I(l) + 'ません';
+  }, ['Negative', 'Polite'], null),
+  new Modifier('cause', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'せる';
+  }, ['Causative'], null),
+  new Modifier('passive', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'れる';
+  }, ['Passive'], null),
+  new Modifier('potential', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w)) + 'る';
+  }, ['Potential'], null),
+  new Modifier('conditional', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w)) + 'ば';
+  }, ['Conditional'], null),
+  new Modifier('volitional', function(w) {
+      return trimLast(w) + Mogrify.O(snipLast(w)) + 'う';
+  }, ['Volitional'], null),
+  new Modifier('polite', function(w) {
+      return trimLast(w) + Mogrify.I(snipLast(w)) + 'ます';
+  }, ['Polite'], null),
+  new Modifier('pastneg', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'なかった';
+  }, ['Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w) {
+      return trimLast(w) + Mogrify.I(snipLast(w)) + 'ませんでした';
+  }, ['Past', 'Negative', 'Polite'], null),
+  new Modifier('passivecause', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'せられる';
+  }, ['Passive', 'Causative'], null),
+  new Modifier('imperitive', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w));
+  }, ['Imperitive'], null),
 ]

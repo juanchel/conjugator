@@ -42,7 +42,7 @@ $(document).ready(function() {
 function Question(word) {
     this.word = word;
     this.base = word;
-    this.modList = ['Base word'];
+    this.modList = [];
 }
 
 Question.prototype.modify = function(modSet) {
@@ -63,7 +63,7 @@ function fetchRandom(arr) {
 }
 
 // Skips a question and shows the correct answer
-function skipQuestion(arr) {
+function skipQuestion() {
     if (skipped) {
         nextQuestion();
     } else {
@@ -117,12 +117,14 @@ function setTimeBar(percent) {
 function nextQuestion() {
     time = 100 * timeMax;
 
-    var type = pickType();
-    var term;
-    if (type == ICHIDAN) {
-        var term = ichidan[Math.floor(Math.random() * ichidan.length)];
-        $('#part').text('v. ')
-    }
+    var wordset = pickType(),
+      type = wordset[0],
+      terms = wordset[1],
+      pos = wordset[2];
+
+    var term = terms[Math.floor(Math.random() * terms.length)];
+    $('#part').text(pos)
+
     var question = new Question(term.word);
     question.modify(type);
     correct = question.word;
@@ -156,12 +158,32 @@ function fadeInMods(modList) {
 // Picks a type of word to make the next question about
 // This function returns the object dictionary so it can be passed around easily
 function pickType() {
-    return ICHIDAN;
+    var sum = 0, sets = [
+      [ICHIDAN, ichidan, '[ichidan] v.'],
+      [GODAN, godan, '[godan] v.']
+    ]
+
+    sets.forEach(function(s)
+    {
+      sum += s[1].length;
+    });
+
+    var rando = ~~(Math.random() * sum);
+    do {
+      if(rando < sets[0][1].length)
+        return sets[0]
+      rando -= sets[0][1].length
+      sets.shift()
+    } while (sets.length);
 }
 
 // Returns the word without the last kana
 function trimLast(word) {
     return word.substring(0, word.length - 1);
+}
+
+function snipLast(word) {
+    return word.substr(-1);
 }
 
 // Timer function called 100 times per second
@@ -198,16 +220,33 @@ var t = setInterval(interval, 10);
 
 function addWell(actual, expected)
 {
+  var mods = $("#mods .mod").map(function(){ return $(this).text()}).toArray().join(", ");
+  var def = $("#meaning").text();
+
   var w = $('<div/>').addClass('wellitem');
+  w.append(
+    $("<span/>")
+    .addClass("well-right")
+    .append(def + " &mdash; ")
+    .append(mods)
+  );
+
   if(actual.localeCompare(expected) == 0)
   {
-    w.addClass('correct').text(actual)
+    w.addClass('correct').append(
+      $("<span/>")
+      .text(actual)
+    );
   }
   else
   {
     w.addClass('skipped')
     .append(' ' + expected)
-    .append($('<span/>').addClass('striken').text(actual));
+    .append(
+      $('<span/>')
+      .addClass('striken')
+      .text(actual)
+    );
   }
 
   $('#well').prepend(w);

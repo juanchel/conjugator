@@ -242,6 +242,10 @@ input[type=checkbox] {
   border-radius: 5px;
 }
 
+.well-right {
+  float: right;
+}
+
 .correct {
   background: #8abc83;
 }
