@@ -3,7 +3,7 @@
 var score = 0;
 var time = 0;
 var mult = 1;
-var _timeMax = 150;
+var _timeMax = 30;
 var timeMax = _timeMax;
 var correct = '';
 var skipped = false;
@@ -19,10 +19,11 @@ $(document).ready(function() {
     });
 
     // When the play button is clicked
-    $('#play').click(function() {
+    $('#play').add("#optplay").click(function() {
         nextQuestion();
         $('#start-screen').animate({top: '-1000px'}, 800);
         $('#main').show();
+        $('#option-menu').hide();
         $('#main').animate({'margin-top': '20px'}, 800);
         $('#title-text').animate({'width': '350px', 'font-size': '20pt', 'height': '40px', 'bottom': '5px', 'margin-bottom': '0px'}, 800);
         $('#title').animate({'height': '50px'}, 800);
@@ -158,10 +159,15 @@ function fadeInMods(modList) {
 // Picks a type of word to make the next question about
 // This function returns the object dictionary so it can be passed around easily
 function pickType() {
-    var sum = 0, sets = [
-      [ICHIDAN, ichidan, '[ichidan] v.'],
-      [GODAN, godan, '[godan] v.']
-    ]
+    var sum = 0, sets = [];
+    if($("#opt-godan:checked").length)
+      sets.push([GODAN, godan, '[godan] v.'])
+
+    if($("#opt-ichidan:checked").length || !sets.length)
+      sets.push([ICHIDAN, ichidan, '[ichidan] v.'])
+
+    if(sets.length == 1)
+      return sets[0];
 
     sets.forEach(function(s)
     {
@@ -222,6 +228,8 @@ function addWell(actual, expected)
 {
   var mods = $("#mods .mod").map(function(){ return $(this).text()}).toArray().join(", ");
   var def = $("#meaning").text();
+  if(!def)
+    return;
 
   var w = $('<div/>').addClass('wellitem');
   w.append(

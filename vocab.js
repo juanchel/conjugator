@@ -199,7 +199,7 @@ var godan = [
   new Term('かわる', '変わる', 'to change'),
   new Term('おう', '追う', 'to chase, drive away'),
   new Term('しゃべる', '喋る', 'to chatter'),
-  new Term('選ぶ', '', 'to choose, select'),
+  new Term('えらぶ', '選ぶ', 'to choose, select'),
   new Term('くいちがう', '食い違う', 'to clash, disagree'),
   new Term('のぼる', '登る', 'to climb'),
   new Term('しまる', '閉まる', 'to close, be closed'),

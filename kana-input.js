@@ -45,7 +45,7 @@
     // kana / romajis knowledge
 
     // Order is important, it matches with hiraganas and katakanas
-    romajis: 'a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po kya kyu kyo gya gyu gyo sha shu sho ja ju jo cha chu cho nya nyu nyo hya hyu hyo bya byu byo pya pyu pyo mya myu myo rya ryu ryo'.split(' '),
+    romajis: 'a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po kya kyu kyo gya gyu gyo sha shu sho ja ju jo cha chu cho nya nyu nyo hya hyu hyo bya byu byo pya pyu pyo mya myu myo rya ryu ryo du'.split(' '),
 
     isRomaji: function (input) {
       return ki.romajis.indexOf(input) !== -1;
@@ -63,7 +63,7 @@
     },
 
     // Order is important, it matches with romajis
-    hiraganas: 'あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん が ぎ ぐ げ ご ざ じ ず ぜ ぞ だ ぢ づ で ど ば び ぶ べ ぼ ぱ ぴ ぷ ぺ ぽ きゃ きゅ きょ ぎゃ ぎゅ ぎょ しゃ しゅ しょ じゃ じゅ じょ ちゃ ちゅ ちょ にゃ にゅ にょ ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ みゃ みゅ みょ りゃ りゅ りょ'.split(' '),
+    hiraganas: 'あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん が ぎ ぐ げ ご ざ じ ず ぜ ぞ だ ぢ づ で ど ば び ぶ べ ぼ ぱ ぴ ぷ ぺ ぽ きゃ きゅ きょ ぎゃ ぎゅ ぎょ しゃ しゅ しょ じゃ じゅ じょ ちゃ ちゅ ちょ にゃ にゅ にょ ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ みゃ みゅ みょ りゃ りゅ りょ づ'.split(' '),
 
     isHiragana: function (input) {
       return ki.hiraganas.indexOf(input) !== -1;

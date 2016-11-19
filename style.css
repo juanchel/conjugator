@@ -254,8 +254,11 @@ input[type=checkbox] {
     background: #e74c3c;
 }
 
-span.striken {
-    text-decoration: line-through;
+.striken{
+  text-decoration: line-through;
+}
+
+.wellitem .striken {
     margin-left: 32px;
     font-size: 12pt;
 }
