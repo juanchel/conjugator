@@ -84,7 +84,8 @@ function skipQuestion() {
 
 // Check if the answer is correct every time a character is typed
 function submitAnswer() {
-    if ($('#answer').val() == correct && !skipped) {
+    var ans = $('#answer').val().replace(/\s/g, '');
+    if (ans == correct && !skipped) {
         $('#answer').addClass('flash');
         setTimeout(function(){
             $('#answer').removeClass('flash');
@@ -97,10 +98,10 @@ function submitAnswer() {
             mult = 1;
             timeMax = _timeMax;
         }
-        addWell($('#answer').val(), correct)
+        addWell(ans, correct)
         $('#score').text(score);
-        $('#mult').text(mult);
         setTimeBar(100);
+        $('#mult').text(mult);
         nextQuestion();
     }
 }
@@ -158,13 +159,25 @@ function fadeInMods(modList) {
 
 // Picks a type of word to make the next question about
 // This function returns the object dictionary so it can be passed around easily
+var sets = null
 function pickType() {
-    var sum = 0, sets = [];
-    if($("#opt-godan:checked").length)
-      sets.push([GODAN, godan, '[godan] v.'])
+    var sum = 0;
+    if(sets == null)
+    {
+      sets = [];
+      if($("#opt-godan:checked").length)
+        sets.push([GODAN, godan, '[godan] v.'])
 
-    if($("#opt-ichidan:checked").length || !sets.length)
-      sets.push([ICHIDAN, ichidan, '[ichidan] v.'])
+      if($("#opt-irregular:checked").length)
+      {
+        sets.push([IRREGULAR_DO, irregular_do, '[irregular] v.'])
+        sets.push([IRREGULAR_EXIST, irregular_exist, '[irregular] v.'])
+      }
+
+      // keep last
+      if($("#opt-ichidan:checked").length || !sets.length)
+        sets.push([ICHIDAN, ichidan, '[ichidan] v.'])
+    }
 
     if(sets.length == 1)
       return sets[0];
@@ -175,12 +188,13 @@ function pickType() {
     });
 
     var rando = ~~(Math.random() * sum);
+    var i=0
     do {
-      if(rando < sets[0][1].length)
-        return sets[0]
-      rando -= sets[0][1].length
-      sets.shift()
-    } while (sets.length);
+      if(rando < sets[i][1].length)
+        return sets[i]
+      rando -= sets[i][1].length
+      i++;
+    } while (i < sets.length);
 }
 
 // Returns the word without the last kana

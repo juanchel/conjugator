@@ -204,7 +204,7 @@ var GODAN = [
           console.error('No te conj for: ' + l)
       }
       return trimLast(w) + e;
-  }, ['て-Form'], null),
+  }, ['て　form'], null),
 
   new Modifier('past', function(w) {
       var e, l = snipLast(w);
@@ -213,7 +213,6 @@ var GODAN = [
         case 'す':
           e = 'した';
           break;
-          console.info(l);
         case 'く':
           e = 'いた';
           break;
@@ -273,4 +272,181 @@ var GODAN = [
   new Modifier('imperitive', function(w) {
       return trimLast(w) + Mogrify.E(snipLast(w));
   }, ['Imperitive'], null),
+]
+
+var irreg_do = [
+    {
+      base: "する",
+      polite: "します",
+      te: "して",
+
+      past: "した",
+      polpast: "しました",
+
+      neg: "しない",
+      polneg: "しません",
+
+      pastneg: "しなかった",
+      polpastneg: "しませんでした",
+
+      volitional: "しよう",
+      passive: "される",
+      causative: "させる",
+      potential: "できる",
+      imperitive: "しろ",
+      conditional: "すれば",
+    },
+    {
+      base: "くる",
+      polite: "きます",
+      te: "きて",
+
+      past: "きた",
+      polpast: "きました",
+
+      neg: "こない",
+      polneg: "",
+
+      pastneg: "こなかった",
+      polpastneg: "きませんでした",
+
+      volitional: "こよう",
+      passive: "こられる",
+      causative: "こさせる",
+      potential: "これる",
+      imperitive: "こい",
+      conditional: "くれば",
+    },
+]
+
+var irreg_exist = [
+    {
+      base: "だ",
+      polite: "です",
+
+      past: "だった",
+      polpast: "でした",
+
+      neg: "でわない",
+      polneg: "でわありません",
+
+      pastneg: "でわなかった",
+      polpastneg: "でわありませんでした",
+
+      probable: "だろう",
+      polprobable: "でしょう",
+
+      negprob: "でわないだろう",
+      polnegprob: "でわないでしょう",
+    },
+    {
+      base: "ある",
+      polite: "あります",
+
+      past: "あった",
+      polpast: "ありました",
+
+      neg: "ない",
+      polneg: "ありません",
+
+      pastneg: "なかった",
+      polpastneg: "ありませんでした",
+
+      probable: "あるだろう",
+      polprobable: "あるでしょう",
+
+      negprob: "ないだろう",
+      polnegprob: "ないでしょう",
+    },
+    {
+      base: "いる",
+      polite: "います",
+
+      past: "いった",
+      polpast: "いました",
+
+      neg: "いない",
+      polneg: "いません",
+
+      pastneg: "いなかった",
+      polpastneg: "いませんでした",
+
+      probable: "いるだろう",
+      polprobable: "いるでしょう",
+
+      negprob: "いないだろう",
+      polnegprob: "いないでしょう",
+    }
+];
+
+function irreg_get(terms, w)
+{
+  var i, t;
+  for(i=0;i<terms.length;i++)
+  {
+    t = terms[i];
+    if(t.base.localeCompare(w) == 0)
+      return t;
+  }
+  console.error('No irregular term for: ' + w);
+}
+
+var IRREGULAR_DO = [
+  new Modifier('polite', function(w){
+    return irreg_get(irreg_do, w).polite;
+  }, ['Polite'], null),
+  new Modifier('te', function(w){
+    return irreg_get(irreg_do, w).te;
+  }, ['て　form'], null),
+  new Modifier('past', function(w){
+    return irreg_get(irreg_do, w).past;
+  }, ['Past'], null),
+  new Modifier('polpast', function(w){
+    return irreg_get(irreg_do, w).polpast;
+  }, ['Polite', 'Past'], null),
+  new Modifier('neg', function(w){
+    return irreg_get(irreg_do, w).neg;
+  }, ['Negative'], null),
+  new Modifier('polneg', function(w){
+    return irreg_get(irreg_do, w).polneg;
+  }, ['Polite', 'Negative'], null),
+  new Modifier('pastneg', function(w){
+    return irreg_get(irreg_do, w).pastneg;
+  }, ['Polite', 'Past', 'Negative'], null),
+  new Modifier('volitional', function(w){
+    return irreg_get(irreg_do, w).volitional;
+  }, ['Volitional'], null),
+  new Modifier('passive', function(w){
+    return irreg_get(irreg_do, w).passive;
+  }, ['Passive'], null),
+  new Modifier('causative', function(w){
+    return irreg_get(irreg_do, w).causative;
+  }, ['Causative'], null),
+  new Modifier('potential', function(w){
+    return irreg_get(irreg_do, w).potential;
+  }, ['Potential'], null),
+  new Modifier('imperitive', function(w){
+    return irreg_get(irreg_do, w).imperitive;
+  }, ['Imperitive'], null),
+  new Modifier('conditional', function(w){
+    return irreg_get(irreg_do, w).conditional;
+  }, ['Conditional'], null),
+]
+
+var IRREGULAR_EXIST = [
+  new Modifier('polite', function(w){
+    return irreg_get(irreg_exist, w).polite;
+  }, ['Polite'], null),
+  new Modifier('probable', function(w){
+    return irreg_get(irreg_exist, w).probable;
+  }, ['Probable'], null),
+  new Modifier('polprobable', function(w){
+    return irreg_get(irreg_exist, w).polprobable;
+  }, ['Probable', 'Polite'], null),
+  new Modifier('negprob', function(w){
+    return irreg_get(irreg_exist, w).negprob;
+  }, ['Probable', 'Negative'], null),
+  new Modifier('polnegprob', function(w){
+    return irreg_get(irreg_exist, w).polnegprob;
+  }, ['Probable', 'Negative', 'Polite'], null),
 ]

@@ -1,3 +1,14 @@
+var irregular_exist = [
+  new Term('だ', '', 'to be'),
+  new Term('いる', '', 'to exist (animate)'),
+  new Term('ある', '', 'to exist (inanimate)'),
+]
+
+var irregular_do = [
+  new Term('する', '', 'to do'),
+  new Term('くる', '来る', 'to come'),
+]
+
 var ichidan = [
     new Term('おきる', '起きる', 'to wake up; to occur'),
     new Term('でる', '出る', 'to leave; to come out'),
