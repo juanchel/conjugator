@@ -460,7 +460,7 @@ var II_ADJECTIVE = [
   }, ['Polite', 'Past'], null),
   new Modifier('neg', function(w){
     return trimLast(w) + 'くない';
-  }, ['Polite', 'Past', 'Negative'], null),
+  }, ['Negative'], null),
   new Modifier('polneg', function(w){
     return trimLast(w) + 'くありません';
   }, ['Polite', 'Negative'], null),
