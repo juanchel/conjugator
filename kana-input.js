@@ -45,7 +45,7 @@
     // kana / romajis knowledge
 
     // Order is important, it matches with hiraganas and katakanas
-    romajis: 'a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po kya kyu kyo gya gyu gyo sha shu sho ja ju jo cha chu cho nya nyu nyo hya hyu hyo bya byu byo pya pyu pyo mya myu myo rya ryu ryo du'.split(' '),
+    romajis: 'a i u e o ka ki ku ke ko sa si shi su se so ta ti chi tu tsu te to na ni nu ne no ha hi hu fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo nn ga gi gu ge go za zi ji zu ze zo da di du de do ba bi bu be bo pa pi pu pe po kya kyu kyo gya gyu gyo sya syu syo sha shu sho jya jyu jyo ja ju jo tya tyu tyo cha chu cho nya nyu nyo hya hyu hyo bya byu byo pya pyu pyo mya myu myo rya ryu ryo xa xi xu xe xo xya xyu xyo xtu xtsu la li lu le lo lya lyu lyo ltu ltsu nk ns nt nc nh nf nm nw nr ng nd nz nj nb np'.split(' '),
 
     isRomaji: function (input) {
       return ki.romajis.indexOf(input) !== -1;
@@ -53,24 +53,21 @@
 
     isSpecialRomaji: function (input) {
 
-      // Handle special case for n ん ン
-      var specialN = input.match(/^[んン][aieuo]$/) != null;
-
       // Handle special case for sokuon っ
       var specialSokuon = input.match(/^([kstcnhfmyrwgzjdbp])\1/) && ki.isRomaji(input.substr(1));
 
-      return specialN || specialSokuon;
+      return specialSokuon;
     },
 
     // Order is important, it matches with romajis
-    hiraganas: 'あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん が ぎ ぐ げ ご ざ じ ず ぜ ぞ だ ぢ づ で ど ば び ぶ べ ぼ ぱ ぴ ぷ ぺ ぽ きゃ きゅ きょ ぎゃ ぎゅ ぎょ しゃ しゅ しょ じゃ じゅ じょ ちゃ ちゅ ちょ にゃ にゅ にょ ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ みゃ みゅ みょ りゃ りゅ りょ づ'.split(' '),
+    hiraganas: 'あ い う え お か き く け こ さ し し す せ そ た ち ち つ つ て と な に ぬ ね の は ひ ふ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん が ぎ ぐ げ ご ざ じ じ ず ぜ ぞ だ ぢ づ で ど ば び ぶ べ ぼ ぱ ぴ ぷ ぺ ぽ きゃ きゅ きょ ぎゃ ぎゅ ぎょ しゃ しゅ しょ しゃ しゅ しょ じゃ じゅ じょ じゃ じゅ じょ ちゃ ちゅ ちょ ちゃ ちゅ ちょ にゃ にゅ にょ ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ みゃ みゅ みょ りゃ りゅ りょ ぁ ぃ ぅ ぇ ぉ ゃ ゅ ょ っ っ ぁ ぃ ぅ ぇ ぉ ゃ ゅ ょ っ っ んk んs んt んc んh んf んm んw んr んg んd んz んj んb んp'.split(' '),
 
     isHiragana: function (input) {
       return ki.hiraganas.indexOf(input) !== -1;
     },
 
     // Order is important, it matches with romajis
-    katakanas: 'ア イ ウ エ オ カ キ ク ケ コ サ シ ス セ ソ タ チ ツ テ ト ナ ニ ヌ ネ ノ ハ ヒ フ ヘ ホ マ ミ ム メ モ ヤ ユ ヨ ラ リ ル レ ロ ワ ヲ ン ガ ギ グ ゲ ゴ ザ ジ ズ ゼ ゾ ダ ヂ ヅ デ ド バ ビ ブ ベ ボ パ ピ プ ペ ポ キャ キュ キョ ギャ ギュ ギョ シャ シュ ショ ジャ ジュ ジョ チャ チュ チョ ニャ ニュ ニョ ヒャ ヒュ ヒョ ビャ ビュ ビョ ピャ ピュ ピョ ミャ ミュ ミョ リャ リュ リョ'.split(' '),
+    katakanas: 'ア イ ウ エ オ カ キ ク ケ コ サ シ シ ス セ ソ タ チ チ ツ ツ テ ト ナ ニ ヌ ネ ノ ハ ヒ フ フ ヘ ホ マ ミ ム メ モ ヤ ユ ヨ ラ リ ル レ ロ ワ ヲ ン ガ ギ グ ゲ ゴ ザ ジ ジ ズ ゼ ゾ ダ ヂ ヅ デ ド バ ビ ブ ベ ボ パ ピ プ ペ ポ キャ キュ キョ ギャ ギュ ギョ シャ シュ ショ シャ シュ ショ ジャ ジュ ジョ ジャ ジュ ジョ チャ チュ チョ チャ チュ チョ ニャ ニュ ニョ ヒャ ヒュ ヒョ ビャ ビュ ビョ ピャ ピュ ピョ ミャ ミュ ミョ リャ リュ リョ ァ ィ ゥ ェ ォ ャ ュ ョ ッ ッ ァ ィ ゥ ェ ォ ャ ュ ョ ッ ッ ンk ンs ンt ンc ンh ンf ンm ンw ンr ンg ンd ンz ンj ンb ンp'.split(' '),
 
     isKatakana: function (input) {
       return ki.katakanas.indexOf(input) !== -1;
@@ -300,3 +297,4 @@
   };
 
 }).call(this);
+
