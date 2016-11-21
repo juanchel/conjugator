@@ -1,52 +1,72 @@
-// FIRST
-// たべる -> VERB
-// たべられる -> VERB
-// たべさせる -> VERB
-// たべさせられる -> VERB
-// たべられる -> VERB
-
-// たべて　-> TEFORM
-// たべなさい
-// たべそう
-// たべるそう
-// たべよう
-// たべましょう
-// たべな -> VERBNAI
-
-// VERB
-// たべる
-// たべた
-// たべない
-// たべなかった
-// たべます
-// たべました
-// たべません
-// たべませんでした
-
-// TEFORM
-// たべてください
-
-// VERBNAI
-// たべないでください
-// たべなくて
-// たべなければ
-// たべなさそう
-// たべないそう
-
-// base te ba seems hearsay kudasai past neg past pol cause pass poten iru vol polvol negba negte neghearsay negseems neghearsay
-
 function Modifier(flag, modFunc, desc, nextMod) {
     this.flag = flag;
     this.modFunc = modFunc;
     this.desc = desc;
-    this.nextMod = nextMod; 
-} 
+    this.nextMod = nextMod;
+}
 
-function Term(word, ruby, def) {
+function Term(word, kanji, def) {
     this.word = word;
-    this.ruby = ruby;
+    this.ruby = addFurigana(kanji || word, word);
     this.def = def;
 }
+
+var KANA_FAM = {
+  V: ['わ','え','い','お','う'],
+
+  K: ['か','け','き','こ','く'],
+  G: ['が','げ','ぎ','ご','ぐ'],
+
+  H: ['は','へ','ひ','ほ','ふ'],
+  B: ['ば','べ','び','ぼ','ぶ'],
+  P: ['ぱ','ぺ','ぴ','ぽ','ぷ'],
+
+  S: ['さ','せ','し','そ','す'],
+  Z: ['ざ','ぜ','じ','ぞ','ず'],
+
+  T: ['た','て','ち','と','つ'],
+  D: ['だ','で','ぢ','ど', null],
+
+  N: ['な','ね','に','の','ぬ'],
+  M: ['ま','め','み','も','む'],
+  R: ['ら','れ','り','ろ','る'],
+  Y: ['や', null, null, 'よ', 'ゆ'],
+
+};
+
+var Mogrify = {
+  _mog: function(kana, index)
+  {
+    for(base in KANA_FAM)
+    {
+      if(KANA_FAM[base].indexOf(kana) != -1)
+      {
+        return KANA_FAM[base][index]
+      }
+    }
+    console.error("No mogrification for kana: " + kana);
+  },
+  A: function(kana)
+  {
+      return Mogrify._mog(kana, 0);
+  },
+  E: function(kana)
+  {
+      return Mogrify._mog(kana, 1);
+  },
+  I: function(kana)
+  {
+      return Mogrify._mog(kana, 2);
+  },
+  O: function(kana)
+  {
+      return Mogrify._mog(kana, 3);
+  },
+  U: function(kana)
+  {
+      return Mogrify._mog(kana, 4);
+  },
+};
 
 var NAIFORM = [
     new Modifier('kudasai', function(w) {
@@ -123,10 +143,10 @@ var ICHIDAN = [
     }, ['Passive'], ICHIVERB),
     new Modifier('cause', function(w) {
         return trimLast(w) + 'させる';
-    }, ['Causitive'], ICHIVERB),
+    }, ['Causative'], ICHIVERB),
     new Modifier('pass cause', function(w) {
         return trimLast(w) + 'させられる';
-    }, ['Causitive', 'Passive'], ICHIVERB),
+    }, ['Causative', 'Passive'], ICHIVERB),
     new Modifier('te iru', function(w) {
         return trimLast(w) + 'ている';
     }, ['Enduring ~ている'], ICHIVERB),
@@ -140,7 +160,7 @@ var ICHIDAN = [
         return trimLast(w) + 'そう';
     }, ['Seems like ~そう'], null),
     new Modifier('negvol', function(w) {
-        return w + 'まい';
+        return trimLast(w) + 'まい';
     }, ['Volitional', 'Negative'], null),
     new Modifier('vol', function(w) {
         return trimLast(w) + 'ましょう';
@@ -151,14 +171,342 @@ var ICHIDAN = [
     new Modifier('ba', function(w) {
         return trimLast(w) + 'れば';
     }, ['Conditional ~ば'], null),
+];
+
+var GODAN = [
+  new Modifier('te', function(w) {
+      var e, l = snipLast(w);
+      switch(l)
+      {
+        case 'す':
+          e = 'して';
+          break;
+        case 'く':
+          e = 'いて';
+          break;
+        case 'ぐ':
+          e = 'いで';
+          break;
+        case 'ぬ':
+        case 'ぶ':
+        case 'む':
+          e = 'んで';
+          break;
+        case 'る':
+        case 'つ':
+        case 'う':
+          e = 'って';
+          break;
+        default:
+          console.error('No te conj for: ' + l)
+      }
+      return trimLast(w) + e;
+  }, ['て　form'], null),
+
+  new Modifier('past', function(w) {
+      var e, l = snipLast(w);
+      switch(l)
+      {
+        case 'す':
+          e = 'した';
+          break;
+        case 'く':
+          e = 'いた';
+          break;
+        case 'ぐ':
+          e = 'いだ';
+          break;
+        case 'ぬ':
+        case 'ぶ':
+        case 'む':
+          e = 'んだ';
+          break;
+        case 'る':
+        case 'つ':
+        case 'う':
+          e = 'った';
+          break;
+        default:
+          console.error('No past conj for: ' + l)
+      }
+      return trimLast(w) + e;
+  }, ['Past'], null),
+  new Modifier('neg', function(w) {
+      var l = snipLast(w);
+      return trimLast(w) + Mogrify.A(l) + 'ない';
+  }, ['Negative'], null),
+  new Modifier('polneg', function(w) {
+      var l = snipLast(w);
+      return trimLast(w) + Mogrify.I(l) + 'ません';
+  }, ['Negative', 'Polite'], null),
+  new Modifier('cause', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'せる';
+  }, ['Causative'], null),
+  new Modifier('passive', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'れる';
+  }, ['Passive'], null),
+  new Modifier('potential', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w)) + 'る';
+  }, ['Potential'], null),
+  new Modifier('conditional', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w)) + 'ば';
+  }, ['Conditional'], null),
+  new Modifier('volitional', function(w) {
+      return trimLast(w) + Mogrify.O(snipLast(w)) + 'う';
+  }, ['Volitional'], null),
+  new Modifier('polite', function(w) {
+      return trimLast(w) + Mogrify.I(snipLast(w)) + 'ます';
+  }, ['Polite'], null),
+  new Modifier('pastneg', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'なかった';
+  }, ['Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w) {
+      return trimLast(w) + Mogrify.I(snipLast(w)) + 'ませんでした';
+  }, ['Past', 'Negative', 'Polite'], null),
+  new Modifier('passivecause', function(w) {
+      return trimLast(w) + Mogrify.A(snipLast(w)) + 'せられる';
+  }, ['Passive', 'Causative'], null),
+  new Modifier('imperitive', function(w) {
+      return trimLast(w) + Mogrify.E(snipLast(w));
+  }, ['Imperitive'], null),
 ]
 
-var ichidan = [
-    new Term('たべる', '<ruby>食<rt>た</rt></ruby>べる</span>', 'to eat'),
-    new Term('ねる', '<ruby>寝<rt>ね</rt></ruby>る', 'to sleep; to lie down'),
-    new Term('しんじる', '<ruby>信<rt>しん</rt></ruby>じる', 'to believe'),
-    new Term('おきる', '<ruby>起<rt>お</rt></ruby>きる', 'to wake up; to occur'),
-    new Term('きる', '<ruby>着<rt>き</rt></ruby>る', 'to wear'),
-    new Term('でる', '<ruby>出<rt>で</rt></ruby>る', 'to leave; to come out'),
-    new Term('かける', '<ruby>掛<rt>か</rt></ruby>ける', 'to hang'),
+var irreg_do = [
+    {
+      base: "する",
+      polite: "します",
+      te: "して",
+
+      past: "した",
+      polpast: "しました",
+
+      neg: "しない",
+      polneg: "しません",
+
+      pastneg: "しなかった",
+      polpastneg: "しませんでした",
+
+      volitional: "しよう",
+      passive: "される",
+      causative: "させる",
+      potential: "できる",
+      imperitive: "しろ",
+      conditional: "すれば",
+    },
+    {
+      base: "くる",
+      polite: "きます",
+      te: "きて",
+
+      past: "きた",
+      polpast: "きました",
+
+      neg: "こない",
+      polneg: "きません",
+
+      pastneg: "こなかった",
+      polpastneg: "きませんでした",
+
+      volitional: "こよう",
+      passive: "こられる",
+      causative: "こさせる",
+      potential: "これる",
+      imperitive: "こい",
+      conditional: "くれば",
+    },
+]
+
+var irreg_exist = [
+    {
+      base: "です",
+      polite: "です",
+
+      past: "だった",
+      polpast: "でした",
+
+      neg: "ではない",
+      polneg: "ではありません",
+
+      pastneg: "ではなかった",
+      polpastneg: "ではありませんでした",
+
+      probable: "だろう",
+      polprobable: "でしょう",
+
+      negprob: "ではないだろう",
+      polnegprob: "ではないでしょう",
+    },
+    {
+      base: "ある",
+      polite: "あります",
+
+      past: "あった",
+      polpast: "ありました",
+
+      neg: "ない",
+      polneg: "ありません",
+
+      pastneg: "なかった",
+      polpastneg: "ありませんでした",
+
+      probable: "あるだろう",
+      polprobable: "あるでしょう",
+
+      negprob: "ないだろう",
+      polnegprob: "ないでしょう",
+    },
+    {
+      base: "いる",
+      polite: "います",
+
+      past: "いった",
+      polpast: "いました",
+
+      neg: "いない",
+      polneg: "いません",
+
+      pastneg: "いなかった",
+      polpastneg: "いませんでした",
+
+      probable: "いるだろう",
+      polprobable: "いるでしょう",
+
+      negprob: "いないだろう",
+      polnegprob: "いないでしょう",
+    }
+];
+
+function irreg_get(terms, w)
+{
+  var i, t;
+  for(i=0;i<terms.length;i++)
+  {
+    t = terms[i];
+    if(t.base.localeCompare(w) == 0)
+      return t;
+  }
+  console.error('No irregular term for: ' + w);
+}
+
+var IRREGULAR_DO = [
+  new Modifier('polite', function(w){
+    return irreg_get(irreg_do, w).polite;
+  }, ['Polite'], null),
+  new Modifier('te', function(w){
+    return irreg_get(irreg_do, w).te;
+  }, ['て　form'], null),
+  new Modifier('past', function(w){
+    return irreg_get(irreg_do, w).past;
+  }, ['Past'], null),
+  new Modifier('polpast', function(w){
+    return irreg_get(irreg_do, w).polpast;
+  }, ['Polite', 'Past'], null),
+  new Modifier('neg', function(w){
+    return irreg_get(irreg_do, w).neg;
+  }, ['Negative'], null),
+  new Modifier('polneg', function(w){
+    return irreg_get(irreg_do, w).polneg;
+  }, ['Polite', 'Negative'], null),
+  new Modifier('pastneg', function(w){
+    return irreg_get(irreg_do, w).pastneg;
+  }, ['Polite', 'Past', 'Negative'], null),
+  new Modifier('volitional', function(w){
+    return irreg_get(irreg_do, w).volitional;
+  }, ['Volitional'], null),
+  new Modifier('passive', function(w){
+    return irreg_get(irreg_do, w).passive;
+  }, ['Passive'], null),
+  new Modifier('causative', function(w){
+    return irreg_get(irreg_do, w).causative;
+  }, ['Causative'], null),
+  new Modifier('potential', function(w){
+    return irreg_get(irreg_do, w).potential;
+  }, ['Potential'], null),
+  new Modifier('imperitive', function(w){
+    return irreg_get(irreg_do, w).imperitive;
+  }, ['Imperitive'], null),
+  new Modifier('conditional', function(w){
+    return irreg_get(irreg_do, w).conditional;
+  }, ['Conditional'], null),
+]
+
+var IRREGULAR_EXIST = [
+  new Modifier('polite', function(w){
+    return irreg_get(irreg_exist, w).polite;
+  }, ['Polite'], null),
+  new Modifier('probable', function(w){
+    return irreg_get(irreg_exist, w).probable;
+  }, ['Probable'], null),
+  new Modifier('polprobable', function(w){
+    return irreg_get(irreg_exist, w).polprobable;
+  }, ['Probable', 'Polite'], null),
+  new Modifier('negprob', function(w){
+    return irreg_get(irreg_exist, w).negprob;
+  }, ['Probable', 'Negative'], null),
+  new Modifier('polnegprob', function(w){
+    return irreg_get(irreg_exist, w).polnegprob;
+  }, ['Probable', 'Negative', 'Polite'], null),
+]
+
+var II_ADJECTIVE = [
+  new Modifier('polite', function(w){
+    return w + 'です';
+  }, ['Polite'], null),
+  new Modifier('past', function(w){
+    return trimLast(w) + 'かった';
+  }, ['Past'], null),
+  new Modifier('polpast', function(w){
+    return trimLast(w) + 'かったです';
+  }, ['Polite', 'Past'], null),
+  new Modifier('neg', function(w){
+    return trimLast(w) + 'くない';
+  }, ['Negative'], null),
+  new Modifier('polneg', function(w){
+    return trimLast(w) + 'くありません';
+  }, ['Polite', 'Negative'], null),
+  new Modifier('pastneg', function(w){
+    return trimLast(w) + 'くなかった';
+  }, ['Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w){
+    return trimLast(w) + 'くありませんでした';
+  }, ['Polite', 'Past', 'Negative'], null),
+  new Modifier('na', function(w){
+    return trimLast(w) + 'な';
+  }, ['な form'], null),
+  new Modifier('te', function(w){
+    return trimLast(w) + 'くて';
+  }, ['て form'], null),
+]
+
+var NA_ADJECTIVE = [
+  new Modifier('na', function(w){
+    return w + 'な';
+  }, ['な form'], null),
+  new Modifier('end', function(w){
+    return w + 'だ';
+  }, ['Ending'], null),
+  new Modifier('polite', function(w){
+    return w + 'です';
+  }, ['Ending', 'Polite'], null),
+  new Modifier('neg', function(w){
+    return w + 'ではない';
+  }, ['Ending', 'Negative'], null),
+  new Modifier('polneg', function(w){
+    return w + 'ではありません';
+  }, ['Ending', 'Polite', 'Negative'], null),
+  new Modifier('past', function(w){
+    return w + 'だった';
+  }, ['Ending', 'Past'], null),
+  new Modifier('polpast', function(w){
+    return w + 'でした';
+  }, ['Ending', 'Polite', 'Past'], null),
+  new Modifier('pastneg', function(w){
+    return w + 'ではなかった';
+  }, ['Ending', 'Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w){
+    return w + 'ではありませんでした';
+  }, ['Ending', 'Polite', 'Past', 'Negative'], null),
+  new Modifier('で　form', function(w){
+    return w + 'で';
+  }, ['で form'], null),
 ]
