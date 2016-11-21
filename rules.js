@@ -12,7 +12,7 @@ function Term(word, kanji, def) {
 }
 
 var KANA_FAM = {
-  V: ['あ','え','い','お','う'],
+  V: ['わ','え','い','お','う'],
 
   K: ['か','け','き','こ','く'],
   G: ['が','げ','ぎ','ご','ぐ'],
@@ -160,7 +160,7 @@ var ICHIDAN = [
         return trimLast(w) + 'そう';
     }, ['Seems like ~そう'], null),
     new Modifier('negvol', function(w) {
-        return w + 'まい';
+        return trimLast(w) + 'まい';
     }, ['Volitional', 'Negative'], null),
     new Modifier('vol', function(w) {
         return trimLast(w) + 'ましょう';
@@ -195,7 +195,7 @@ var GODAN = [
         case 'る':
         case 'つ':
         case 'う':
-          e = 'ぅて';
+          e = 'って';
           break;
         default:
           console.error('No te conj for: ' + l)
@@ -224,7 +224,7 @@ var GODAN = [
         case 'る':
         case 'つ':
         case 'う':
-          e = 'ぅた';
+          e = 'った';
           break;
         default:
           console.error('No past conj for: ' + l)
@@ -302,7 +302,7 @@ var irreg_do = [
       polpast: "きました",
 
       neg: "こない",
-      polneg: "",
+      polneg: "きません",
 
       pastneg: "こなかった",
       polpastneg: "きませんでした",
@@ -483,7 +483,7 @@ var NA_ADJECTIVE = [
     return w + 'な';
   }, ['な form'], null),
   new Modifier('end', function(w){
-    return w + 'で';
+    return w + 'だ';
   }, ['Ending'], null),
   new Modifier('polite', function(w){
     return w + 'です';
