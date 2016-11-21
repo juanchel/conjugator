@@ -174,6 +174,12 @@ function pickType() {
         sets.push([IRREGULAR_EXIST, irregular_exist, '[irregular] v.'])
       }
 
+      if($("#opt-naadj:checked").length)
+        sets.push([NA_ADJECTIVE, na_adjective, '[na] adj.'])
+
+      if($("#opt-iadj:checked").length)
+        sets.push([II_ADJECTIVE, ii_adjective, '[i] adj.'])
+
       // keep last
       if($("#opt-ichidan:checked").length || !sets.length)
         sets.push([ICHIDAN, ichidan, '[ichidan] v.'])

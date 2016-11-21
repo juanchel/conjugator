@@ -174,9 +174,6 @@ var ICHIDAN = [
 ];
 
 var GODAN = [
-  new Modifier('base', function(w) {
-      return w;
-  }, [], null),
   new Modifier('te', function(w) {
       var e, l = snipLast(w);
       switch(l)
@@ -321,7 +318,7 @@ var irreg_do = [
 
 var irreg_exist = [
     {
-      base: "だ",
+      base: "です",
       polite: "です",
 
       past: "だった",
@@ -449,4 +446,67 @@ var IRREGULAR_EXIST = [
   new Modifier('polnegprob', function(w){
     return irreg_get(irreg_exist, w).polnegprob;
   }, ['Probable', 'Negative', 'Polite'], null),
+]
+
+var II_ADJECTIVE = [
+  new Modifier('polite', function(w){
+    return w + 'です';
+  }, ['Polite'], null),
+  new Modifier('past', function(w){
+    return trimLast(w) + 'かった';
+  }, ['Past'], null),
+  new Modifier('polpast', function(w){
+    return trimLast(w) + 'かったです';
+  }, ['Polite', 'Past'], null),
+  new Modifier('neg', function(w){
+    return trimLast(w) + 'くない';
+  }, ['Polite', 'Past', 'Negative'], null),
+  new Modifier('polneg', function(w){
+    return trimLast(w) + 'くありません';
+  }, ['Polite', 'Negative'], null),
+  new Modifier('pastneg', function(w){
+    return trimLast(w) + 'くなかった';
+  }, ['Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w){
+    return trimLast(w) + 'くありませんでした';
+  }, ['Polite', 'Past', 'Negative'], null),
+  new Modifier('na', function(w){
+    return trimLast(w) + 'な';
+  }, ['な form'], null),
+  new Modifier('te', function(w){
+    return trimLast(w) + 'くて';
+  }, ['て form'], null),
+]
+
+var NA_ADJECTIVE = [
+  new Modifier('na', function(w){
+    return w + 'な';
+  }, ['な form'], null),
+  new Modifier('end', function(w){
+    return w + 'で';
+  }, ['Ending'], null),
+  new Modifier('polite', function(w){
+    return w + 'です';
+  }, ['Ending', 'Polite'], null),
+  new Modifier('neg', function(w){
+    return w + 'でわない';
+  }, ['Ending', 'Negative'], null),
+  new Modifier('polneg', function(w){
+    return w + 'でわありません';
+  }, ['Ending', 'Polite', 'Negative'], null),
+  new Modifier('past', function(w){
+    return w + 'だった';
+  }, ['Ending', 'Past'], null),
+  new Modifier('polpast', function(w){
+    return w + 'でした';
+  }, ['Ending', 'Polite', 'Past'], null),
+  new Modifier('pastneg', function(w){
+    return w + 'でわなかった';
+  }, ['Ending', 'Past', 'Negative'], null),
+  new Modifier('polpastneg', function(w){
+    return w + 'でわありませんでした';
+  }, ['Ending', 'Polite', 'Past', 'Negative'], null),
+  new Modifier('で　form', function(w){
+    return w + 'で';
+  }, ['で form'], null),
 ]

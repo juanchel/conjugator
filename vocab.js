@@ -436,3 +436,17 @@ var godan = [
   new Term('つつむ', '包む', 'to wrap'),
   new Term('かく', '書く', 'to write'),
 ]
+
+var ii_adjective = [
+  new Term('やすい', '安い', 'cheap'),
+  new Term('おもしろい', '面白い', 'interesting'),
+  new Term('あたらしい', '新しい', 'new'),
+  new Term('たのしい', '楽しい', 'fun'),
+]
+
+var na_adjective = [
+  new Term('べんり', '便利', 'convenient'),
+  new Term('しずか', '静か', 'quiet'),
+  new Term('ゆうめい', '有名', 'famous'),
+
+]
