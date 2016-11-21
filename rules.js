@@ -324,17 +324,17 @@ var irreg_exist = [
       past: "だった",
       polpast: "でした",
 
-      neg: "でわない",
-      polneg: "でわありません",
+      neg: "ではない",
+      polneg: "ではありません",
 
-      pastneg: "でわなかった",
-      polpastneg: "でわありませんでした",
+      pastneg: "ではなかった",
+      polpastneg: "ではありませんでした",
 
       probable: "だろう",
       polprobable: "でしょう",
 
-      negprob: "でわないだろう",
-      polnegprob: "でわないでしょう",
+      negprob: "ではないだろう",
+      polnegprob: "ではないでしょう",
     },
     {
       base: "ある",
@@ -489,10 +489,10 @@ var NA_ADJECTIVE = [
     return w + 'です';
   }, ['Ending', 'Polite'], null),
   new Modifier('neg', function(w){
-    return w + 'でわない';
+    return w + 'ではない';
   }, ['Ending', 'Negative'], null),
   new Modifier('polneg', function(w){
-    return w + 'でわありません';
+    return w + 'ではありません';
   }, ['Ending', 'Polite', 'Negative'], null),
   new Modifier('past', function(w){
     return w + 'だった';
@@ -501,10 +501,10 @@ var NA_ADJECTIVE = [
     return w + 'でした';
   }, ['Ending', 'Polite', 'Past'], null),
   new Modifier('pastneg', function(w){
-    return w + 'でわなかった';
+    return w + 'ではなかった';
   }, ['Ending', 'Past', 'Negative'], null),
   new Modifier('polpastneg', function(w){
-    return w + 'でわありませんでした';
+    return w + 'ではありませんでした';
   }, ['Ending', 'Polite', 'Past', 'Negative'], null),
   new Modifier('で　form', function(w){
     return w + 'で';
