@@ -21,7 +21,7 @@ body {
     margin-left: auto;
     width: 100%;
     background: #ecf0f1;
-    height: 120px;
+    height: 150px;
     z-index: 1;
 }
 
@@ -99,6 +99,25 @@ body {
 #meaning {
     font-family: 'Lucida Bright', Georgia, serif;
     color: #707070;
+}
+
+#ribbon {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+}
+
+#explan p {
+    width: 60%;
+    text-align: justify;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#optplay {
+  text-align:center;
 }
 
 .mod {
