@@ -5,7 +5,9 @@
         <link rel="stylesheet" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="furigana.js" charset="utf-8"></script>
         <script src="rules.js" charset="utf-8"></script>
+        <script src="vocab.js" charset="utf-8"></script>
         <script src="conjugate.js" charset="utf-8"></script>
         <script src="kana-input.js" charset="utf-8"></script>
     </head>
@@ -14,6 +16,14 @@
         <div id="start-screen">
             <div id="play" class="btn">Start</div>
             <div id="options" class="btn">Options</div>
+            <div id="explan">
+              <p>
+                This game <em>may</em> contain inaccuracies and is not intended to be used for any purpose
+                other than for entertainment. It may also contain conjugations that are not actively used
+                in the Japanese language. Allow the purpose of this exercise to be to correctly conjugate
+                the <em>type</em> rather than the word itself.
+              </p>
+            </div>
         </div>
         <div id="main">
             <div id="info">
@@ -25,31 +35,31 @@
                 <div id="scoreboard"><span id="score">0</span><br/><span class="lb-text">x</span><span id="mult">1</span></div>
             </div>
             <div id="time-bar"><textarea id="answer" maxlength="25" data-kana-input></textarea></div>
+            <div id="well"></div>
         </div>
         <div id="option-menu">
-            <div class="option-label">う verbs</div>
-            <div class="check-box">
-                <input type="checkbox" value="0" id="uverb" name="" />
-                <label for="uverb"></label>
+            <h2>Verbs</h2>
+            <div id="verb-options">
             </div>
-            <div class="option-label">る verbs</div>
-            <div class="check-box">
-                <input type="checkbox" value="1" id="ruverb" name="" />
-                <label for="ruverb"></label>
-            </div>
-            <div class="option-label">い adjectives</div>
-            <div class="check-box">
-                <input type="checkbox" value="0" id="iadj" name="" />
-                <label for="iadj"></label>
-            </div>
-            <div class="option-label">な adjectives</div>
-            <div class="check-box">
-                <input type="checkbox" value="0" id="naadj" name="" />
-                <label for="naadj"></label>
-            </div>
-            <div class="menu-sec" id="basic-opt"><br/>Basic</div>
-            <div class="menu-sec"><br/>Intermediate</div>
-            <div class="menu-sec"><br/>Advanced</div>
+
+            <div class="menu-sec"></div>
+            <h2>Verb Conjugations</h2>
+            <div id="conjugation-options"></div>
+
+            <div class="menu-sec"></div>
+            <h2>Adjectives</h2>
+            <div id="adjective-options"></div>
+
+            <div class="menu-sec"></div>
+            <h2>Kanji</h2>
+            <div id="kanji-options"></div>
+
+            <div class="menu-sec"></div>
+            <div id="optplay" class="btn">Start</div>
         </div>
+
+        <a id="ribbon" href="https://github.com/juanchel/conjugator">
+          <img src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png">
+        </a>
     </body>
 </html>

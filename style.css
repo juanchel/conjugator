@@ -21,7 +21,7 @@ body {
     margin-left: auto;
     width: 100%;
     background: #ecf0f1;
-    height: 120px;
+    height: 150px;
     z-index: 1;
 }
 
@@ -101,6 +101,26 @@ body {
     color: #707070;
 }
 
+#ribbon {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+}
+
+#explan p {
+    width: 60%;
+    text-align: justify;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#optplay {
+  text-align:center;
+  margin-bottom: 60px;
+}
+
 .mod {
     font-size: 15pt;
     color: #ecf0f1;
@@ -147,6 +167,10 @@ body {
     font-size: 16pt;
 }
 
+#part {
+  margin-right: 16px;
+}
+
 .flash {
   -moz-animation: flash 0.5s ease-out;
   -moz-animation-iteration-count: 1;
@@ -157,12 +181,12 @@ body {
 }
 
 @-webkit-keyframes flash {
-    0% { background-color: #3498db;}   
+    0% { background-color: #3498db;}
     100% {background-color: none;}
 }
 
 @-moz-keyframes flash {
-    0% { background-color: #3498db;}   
+    0% { background-color: #3498db;}
     100% {background-color: none;}
 }
 
@@ -181,12 +205,12 @@ body {
 }
 
 @-webkit-keyframes flashr {
-    0% { background-color: #e74c3c;}   
+    0% { background-color: #e74c3c;}
     100% {background-color: none;}
 }
 
 @-moz-keyframes flashr {
-    0% { background-color: #e74c3c;}   
+    0% { background-color: #e74c3c;}
     100% {background-color: none;}
 }
 
@@ -202,7 +226,7 @@ body {
     background-image: -o-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -moz-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
     background-image: -webkit-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
-    background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);   
+    background-image: -ms-linear-gradient(left, #3498db 50%, #ecf0f1 50%);
 }
 
 textarea:focus {
@@ -226,6 +250,43 @@ textarea {
 input[type=checkbox] {
     visibility: hidden;
 }
+
+/**/
+#well{
+    margin-top:32px;
+}
+
+.wellitem {
+  margin: 4px 0;
+  color: black;
+  font-size: 15pt;
+  padding: 0px 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.well-right {
+  float: right;
+}
+
+.correct {
+  background: #8abc83;
+}
+
+.skipped {
+    background: #e74c3c;
+}
+
+.striken{
+  text-decoration: line-through;
+}
+
+.wellitem .striken {
+    margin-left: 32px;
+    font-size: 12pt;
+}
+/**/
 
 .option-label {
     float: left;
