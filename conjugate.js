@@ -50,8 +50,8 @@ $(document).ready(function() {
     }
 
     genOpts('adjective-options', [
-      ['い adjectives', 'opt-iadj'],
-      ['な adjectives', 'opt-naadj']
+      ['い adjectives', 'iadj'],
+      ['な adjectives', 'naadj']
     ]);
 
     genOpts('conjugation-options', [
@@ -75,14 +75,14 @@ $(document).ready(function() {
     ]);
 
     genOpts('verb-options',[
-      ['ichidan (-いる,　-える)', 'opt-ichidan'],
-      ['godan', 'opt-godan'],
-      ['irregular', 'opt-irregular'],
+      ['ichidan (-いる,　-える)', 'ichidan'],
+      ['godan', 'godan'],
+      ['irregular', 'irregular'],
     ]);
 
     genOpts('kanji-options',[
-      ['Show and Accept Kanji', 'opt-kanji'],
-      ['Show Furigana', 'opt-furigana'],
+      ['Show and Accept Kanji', 'kanji'],
+      ['Show Furigana', 'furigana'],
     ]);
 
     $("#option-menu input:checkbox")
@@ -185,7 +185,7 @@ function nextQuestion() {
     correct = question.word;
 
     console.log(correct);
-    $('#question-word').html(term.ruby);
+    $('#question-word').html(term.render());
     $('#meaning').text(term.def);
     $('#mods .mod').remove();
     $('#answer').val('');
