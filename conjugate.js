@@ -18,6 +18,17 @@ $(document).ready(function() {
         }
     });
 
+    $("#option-menu input:checkbox")
+    .change(function()
+    {
+      location.hash = configString();
+    })
+    .each(function(i)
+    {
+      $(this).data("cfg", 2**i);
+    });
+    setConfig(location.hash.replace(/^\#/, ''));
+
     // When the play button is clicked
     $('#play').add("#optplay").click(function() {
         nextQuestion();
@@ -280,4 +291,29 @@ function addWell(actual, expected)
   }
 
   $('#well').prepend(w);
+}
+
+function configString()
+{
+  return $("#option-menu input:checkbox:checked")
+  .map(function(){
+    return $(this).data('cfg')
+  })
+  .toArray()
+  .reduce(function(a,b)
+  {
+    return a + b;
+  }).toString(36);
+}
+
+function setConfig(str)
+{
+  str=""+str;
+  if(!str.length) return;
+  var bits = parseInt(""+str, 36, 10);
+  $("#option-menu input:checkbox")
+  .each(function(){
+    var bval = +$(this).data('cfg');
+    $(this).prop("checked", !!(bits & bval));
+  });
 }
