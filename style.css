@@ -167,6 +167,10 @@ body {
     font-size: 16pt;
 }
 
+#part {
+  margin-right: 16px;
+}
+
 .flash {
   -moz-animation: flash 0.5s ease-out;
   -moz-animation-iteration-count: 1;

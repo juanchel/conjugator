@@ -18,17 +18,6 @@ $(document).ready(function() {
         }
     });
 
-    $("#option-menu input:checkbox")
-    .change(function()
-    {
-      location.hash = configString();
-    })
-    .each(function(i)
-    {
-      $(this).data("cfg", 2**i);
-    });
-    setConfig(location.hash.replace(/^\#/, ''));
-
     // When the play button is clicked
     $('#play').add("#optplay").click(function() {
         nextQuestion();
@@ -50,7 +39,63 @@ $(document).ready(function() {
         $('#ribbon img').animate({'height': '50px', 'width': '50px'}, 800);
     });
 
-    genFullOption($('#basic-opt'), 'Past Tense', 'past');
+    var genOpts = function(id, opts)
+    {
+      opts.forEach(function(opt)
+      {
+        opt[1] = "opt-" + opt[1];
+        opt.unshift($("#"+id));
+        genFullOption.apply(this, opt)
+      });
+    }
+
+    genOpts('adjective-options', [
+      ['い adjectives', 'opt-iadj'],
+      ['な adjectives', 'opt-naadj']
+    ]);
+
+    genOpts('conjugation-options', [
+      ModTypes.FORMAL,
+      ModTypes.INFORMAL,
+      ModTypes.PAST,
+      ModTypes.NEGATIVE,
+      ModTypes.TE,
+      ModTypes.VOLITIONAL,
+      ModTypes.POTENTIAL,
+      ModTypes.CAUSATIVE,
+      ModTypes.PASSIVE,
+      ModTypes.PROGRESSIVE,
+      ModTypes.IMPERITIVE,
+      ModTypes.PROBABLE,
+      ModTypes.CONDITIONAL,
+      ModTypes.PLEASE,
+      ModTypes.REQUEST,
+      ModTypes.HEARSAY,
+      ModTypes.SEEMSLIKE,
+    ]);
+
+    genOpts('verb-options',[
+      ['ichidan (-いる,　-える)', 'opt-ichidan'],
+      ['godan', 'opt-godan'],
+      ['irregular', 'opt-irregular'],
+    ]);
+
+    genOpts('kanji-options',[
+      ['Show and Accept Kanji', 'opt-kanji'],
+      ['Show Furigana', 'opt-furigana'],
+    ]);
+
+    $("#option-menu input:checkbox")
+    .change(function()
+    {
+      location.hash = configString();
+    })
+    .each(function(i)
+    {
+      $(this).data("cfg", 2**i);
+    });
+    setConfig(location.hash.replace(/^\#/, ''));
+
 });
 
 function Question(word) {
@@ -64,11 +109,6 @@ Question.prototype.modify = function(modSet) {
     var modifier = fetchRandom(modSet);
     this.word = modifier.modFunc(this.word);
     this.modList.push.apply(this.modList, modifier.desc);
-
-    // If theres a next mod, apply it too
-    if (modifier.nextMod != null) {
-        this.modify(modifier.nextMod);
-    }
 }
 
 // Fetches a random element of an array
@@ -196,6 +236,9 @@ function pickType() {
       // keep last
       if($("#opt-ichidan:checked").length || !sets.length)
         sets.push([ICHIDAN, ichidan, '[ichidan] v.'])
+
+      // remove config-disabled modifiers
+      filterSets(sets);
     }
 
     if(sets.length == 1)
@@ -244,6 +287,7 @@ function genLabel(desc) {
 function genOption(desc) {
     var $option = $('<div/>', {class: 'check-box'});
     var $input = $('<input/>', {type: 'checkbox', value: '0', id: desc, name: ''});
+    $input.prop('checked', true);
     var $label = $('<label/>', {for: desc});
     $option.append($input);
     $option.append($label);
@@ -317,3 +361,37 @@ function setConfig(str)
     $(this).prop("checked", !!(bits & bval));
   });
 }
+
+function checkConfig(opts)
+{
+  var i, id;
+  for(i=0; i < opts.length; i++)
+  {
+    id = '#opt-' + opts[i];
+    if($(id).filter(":checked").length == 0)
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+function filterSets(sets)
+{
+  var i=0, mods, terms;
+  for(i; i < sets.length; i++)
+  {
+    sets[i][0] = sets[i][0].filter(filterMod);
+  }
+
+  return sets;
+};
+
+function filterMod(mod)
+{
+  var i, flags = mod.flag;
+  if(!checkConfig(flags))
+    return false;
+
+  return true;
+};
